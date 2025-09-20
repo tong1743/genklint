@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>角色文字設定</title>
+  <style>
+    body.dark-mode #navMenuBtn {
+      color: white;
+      text-shadow: #181c22 1px 1px 2px;
+    }
+
+    body.dark-mode .side-nav {
+      background: #232834;
+      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.4);
+    }
+
+    body.dark-mode .side-nav a {
+      color: #d3d7de;
+    }
+
+    body.dark-mode .side-nav a.active {
+      background: #7ecfff;
+      color: #232834;
+      font-weight: bold;
+    }
+
+    body.dark-mode .side-nav a:hover {
+      background: #2e6b97;
+      color: #fff;
+    }
+
+    body.dark-mode #closeNavBtn {
+      color: #d3d7de;
+    }
+
+
+    /*晚間模式*/
+    /*共通內容*/
+    body.dark-mode {
+      background: #181c22;
+      color: #d3d7de;
+    }
+
+    body.dark-mode h1,
+    body.dark-mode h2,
+    body.dark-mode h3 {
+      color: #7ecfff;
+    }
+
+    body.dark-mode .main-content {
+      background: #181c22;
+    }
+
+    body.dark-mode .banner {
+      color: #fff;
+    }
+
+    body.dark-mode .banner::before {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+
+
+    body.dark-mode hr {
+      border-color: #3a4a5a;
+    }
+
+    body.dark-mode #backToTopBtn::after {
+      background: #232834;
+      color: #7ecfff;
+      border-color: #7ecfff;
+    }
+
+    body.dark-mode #toggleDarkModeBtn {
+      background: #2e6b97;
+    }
+
+    /*非共通內容*/
+    body.dark-mode table {
+      background: #232834;
+      color: #d3d7de;
+    }
+
+    body.dark-mode table tr:nth-child(odd) {
+      background: #232834;
+    }
+
+    body.dark-mode table tr:hover {
+      background: #2e6b97;
+      color: #fff;
+    }
+
+    body.dark-mode .charadata_table td:first-child,
+    body.dark-mode .timeline_table td:first-child[rowspan],
+    body.dark-mode .timeline_table tr:first-child td:first-child {
+      background-color: #2e6b97;
+      color: #fff;
+    }
+
+    .content-box {
+      position: relative;
+    }
+
+    .popup,
+    .popup2 {
+      color: #84B1ED;
+      cursor: pointer;
+      text-decoration: underline;
+      position: relative;
+      text-wrap: nowrap;
+    }
+
+    .popup::before,
+    .popup2::before {
+      content: attr(data-popup-content);
+      white-space: pre-line;
+      text-indent: 0;
+      position: absolute;
+      left: var(--popup-left, 100%) !important;
+      top: var(--popup-top, 0) !important;
+      font-size: 12px;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px;
+      border-radius: 10px;
+      width: 180px;
+      max-width: 220px;
+      max-height: 200px;
+      overflow: auto;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 9999;
+      box-sizing: border-box;
+    }
+
+    .popup:hover::before,
+    .popup2:hover::before {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+
+    @media screen and (max-width: 768px) {
+
+      /* 暗色模式下的 .charadata_table 配色 */
+      body.dark-mode .charadata_table {
+        background-color: transparent;
+        color: #d3d7de;
+        border-color: #3a4a5a;
+      }
+
+      body.dark-mode .charadata_table tr {
+        background-color: #232834;
+        border-color: #3a4a5a;
+      }
+
+      body.dark-mode .charadata_table td {
+        color: #d3d7de;
+        border-color: #3a4a5a;
+      }
+
+      body.dark-mode .charadata_table td:first-child {
+        background-color: #2e6b97;
+        color: #fff;
+      }
+
+      body.dark-mode .charadata_table tr td:nth-child(2) {
+        background-color: #232834;
+      }
+
+      body.dark-mode .charadata_table tr td:nth-child(2)::before {
+        color: #fff;
+      }
+
+      body.dark-mode .charadata_table tr td:nth-child(3) {
+        background-color: #232834;
+      }
+
+      body.dark-mode .charadata_table tr td:nth-child(3)::before {
+        color: #fff;
+      }
+    }
+
+
+    body.dark-mode .collapse-box {
+      background: #232834;
+      border-color: #3a4a5a;
+    }
+
+    body.dark-mode .collapse-header {
+      background: #2e6b97;
+      color: #fff;
+    }
+
+    body.dark-mode .collapse-header * {
+      color: #fff;
+    }
+
+    body.dark-mode .collapse-content {
+      background: #232834;
+      color: #d3d7de;
+    }
+
+
+
+
+
+    /*共通內容*/
+    /* 基本重置和布局 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    hr {
+      margin: 1rem;
+    }
+
+    h2 {
+      color: #84B1ED;
+    }
+
+    li {
+      margin-left: 1em;
+    }
+
+    .spolier {
+      color: black;
+      background-color: black;
+      transition: color 0.3s;
+    }
+
+    .spolier:hover {
+      color: white;
+    }
+
+    .main-content {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 900px;
+      padding: 20px 32px;
+      min-height: 100vh;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px 0;
+      font-size: 0.9em;
+    }
+
+    /* 背景橫幅樣式 */
+    .banner {
+      background-image: url('picture/banner.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 100%;
+      height: 400px;
+      aspect-ratio: 16/10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+
+    .banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .banner-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+
+    .banner h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    .banner .banner-content h1 {
+      color: white;
+    }
+
+    .banner p {
+      font-size: 1.2em;
+    }
+
+
+    /* 側邊導覽列樣式 */
+    .side-nav {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 260px;
+      height: 100%;
+      background: #2e6b97;
+      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+      z-index: 3001;
+      display: flex;
+      flex-direction: column;
+      padding-top: 60px;
+      transition: left 0.3s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .side-nav.open {
+      left: 0;
+    }
+
+    .side-nav a {
+      color: #fff;
+      padding: 18px 32px;
+      text-decoration: none;
+      font-size: 1.2em;
+      transition: background 0.2s;
+    }
+
+    .side-nav a.active {
+      background: #7ecfff;
+      color: #2e6b97;
+      font-weight: bold;
+    }
+
+    .side-nav a:hover {
+      background: #3a4a5a;
+      color: #fff;
+    }
+
+    /* 側邊欄開啟時隱藏選單按鈕 */
+    #navMenuBtn {
+      display: flex;
+      position: fixed;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      width: 48px;
+      height: 48px;
+      top: 16px;
+      left: 16px;
+      z-index: 3100;
+      font-size: 2em;
+      color: black;
+      text-shadow: #ebebeb 1px 1px 2px;
+      border: none;
+      border-radius: 8px;
+      padding: 6px 16px;
+      cursor: pointer;
+    }
+
+
+    #navMenuBtn .menu-icon,
+    #navMenuBtn .close-icon {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: block;
+      width: 1em;
+      height: 1em;
+      font-size: 2em;
+      line-height: 1;
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+    }
+
+    #navMenuBtn .close-icon {
+      opacity: 0;
+      transform: translate(-50%, -50%) rotate(-90deg) scale(0.7);
+    }
+
+    .side-nav.open #navMenuBtn .menu-icon {
+      opacity: 0;
+      transform: translate(-50%, -50%) rotate(90deg) scale(0.7);
+    }
+
+    .side-nav.open #navMenuBtn .close-icon {
+      opacity: 1;
+      transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    }
+
+    /* 讓 navMenuBtn 在側邊欄開啟時顯示（覆蓋原本 display:none） */
+    .side-nav.open #navMenuBtn {
+      display: flex !important;
+    }
+
+    /*黑暗模式切換按鈕*/
+    #toggleDarkModeBtn {
+      position: absolute;
+      bottom: 12px;
+      right: 50%;
+      transform: translateX(50%);
+      z-index: 3000;
+      padding: 7px 18px;
+      font-size: 1em;
+      border-radius: 8px;
+      border: none;
+      background: #232834;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    /* 遮罩 */
+    .side-nav-mask {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 3000;
+    }
+
+    .side-nav.open~.side-nav-mask {
+      display: block;
+    }
+
+    .page-section {
+      margin-bottom: 40px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    /*回到頂端按鈕*/
+    #backToTopBtn {
+      position: fixed;
+      right: 22px;
+      bottom: 32px;
+      width: 104px;
+      height: 78px;
+      cursor: pointer;
+      z-index: 2000;
+      background: none;
+      border: none;
+      outline: none;
+      padding: 4px;
+      transition: opacity 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #backToTopBtn.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #backToTopBtn::after {
+      content: "回到頂端⇧";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -26px;
+      background: rgba(0, 0, 0, 0.4);
+      color: white;
+      border: white 1px solid;
+      font-size: 12px;
+      padding: 2px 9px;
+      border-radius: 14px;
+      text-align: center;
+      pointer-events: auto;
+      white-space: nowrap;
+      opacity: 1;
+    }
+
+    #backToTopBtn img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+    }
+
+    @media screen and (max-width: 768px) {
+      #backToTopBtn {
+        position: fixed;
+        right: 12px;
+        bottom: 32px;
+        width: 52px;
+        height: 39px;
+        cursor: pointer;
+        z-index: 2000;
+        background: none;
+        border: none;
+        outline: none;
+        padding: 4px;
+        transition: opacity 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      #backToTopBtn::after {
+
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -20px;
+        background: rgba(0, 0, 0, 0.4);
+        color: white;
+        border: white 1px solid;
+        font-size: 9px;
+        padding: 2px 9px;
+        border-radius: 14px;
+      }
+
+      #backToTopBtn img {
+        content: url(picture/backtotop_small.gif);
+      }
+    }
+
+    /*非共通內容*/
+    /*大頭照名字*/
+    .headshot_container {
+      position: relative;
+      display: inline-block;
+    }
+
+
+    .headshot::before {
+      bottom: 5px;
+      content: "繪師：Shuja";
+      position: absolute;
+      color: white;
+      text-shadow: #181c22 1px 1px 2px;
+      padding: 2px 4px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .headshot_container{
+        display: block;
+        text-align: center;
+      }
+      .headshot::before {
+        font-size: 12px;
+        bottom: 2px;
+        padding: 1px 3px;
+      }
+    }
+
+    /*縮排*/
+    .content-box {
+      text-indent: 2em;
+    }
+
+    /* 自訂收合區塊 collapse-box */
+    .collapse-box {
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      margin: 1.5em 0;
+      background: #f7f7f7;
+      overflow: hidden;
+    }
+
+    .collapse-header {
+      width: 100%;
+      background: #2e6b97;
+      color: white;
+      border: none;
+      outline: none;
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 0.7em 1.2em;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: background 0.2s;
+    }
+
+    .collapse-header * {
+      color: white;
+    }
+
+    .collapse-header .arrow {
+      display: inline-block;
+      margin-right: 0.7em;
+      font-size: 1.2em;
+      transition: transform 0.2s;
+    }
+
+    .collapse-box.open .collapse-header .arrow {
+      transform: rotate(90deg);
+    }
+
+    .collapse-content {
+      max-height: 0;
+      overflow: hidden;
+      background: #fff;
+      padding: 0 1.2em;
+      transition: max-height 0.3s cubic-bezier(.4, 0, .2, 1), padding 0.3s;
+    }
+
+    .collapse-box.open .collapse-content {
+      padding: 1em 1.2em;
+      max-height: 800px;
+      /* 根據內容調整最大高度 */
+    }
+
+    summary::marker {
+      content: "";
+      font-size: 0;
+    }
+
+    summary {
+      display: inline-block;
+      font-size: 1.5em;
+      /* 依你需求調整 */
+      cursor: pointer;
+      position: relative;
+    }
+
+    summary::after {
+      content: "▼";
+      font-size: 1em;
+      /* 跟 summary 文字同大小 */
+      margin-left: 0.5em;
+      vertical-align: middle;
+      transition: transform 0.2s;
+    }
+
+    details[open] summary::after {
+      content: "▲";
+    }
+
+    /*表格共通樣式*/
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      background-color: #f9f9f9;
+    }
+
+    table td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+      vertical-align: top;
+      word-wrap: break-word;
+      word-break: break-all;
+      overflow-wrap: break-word;
+    }
+
+    table tr:nth-child(odd) {
+      background-color: #f2f2f2;
+    }
+
+    table tr:hover {
+      background-color: #e0e0e0;
+    }
+
+    /* 設定表格樣式 */
+
+    .charadata_table td:first-child {
+      background-color: #1E6C93;
+      color: white;
+      font-weight: bold;
+      text-align: left;
+      padding: 12px;
+      border: 1px solid #ddd;
+      position: sticky;
+    }
+
+    .charadata_table img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto 5px auto;
+      border-radius: 5px;
+    }
+
+    /*時間線表格樣式*/
+
+    /* 第一欄作為標題 */
+    .timeline_table td:first-child[rowspan],
+    .timeline_table tr:first-child td:first-child {
+      background-color: #1E6C93;
+      color: white;
+      text-align: left;
+      font-weight: bold;
+      padding: 12px;
+      border: 1px solid #ddd;
+      position: sticky;
+      left: 0;
+    }
+
+    @media screen and (max-width: 768px) {
+      .banner h1 {
+        font-size: 2em;
+      }
+
+      .banner p {
+        font-size: 1em;
+      }
+
+      .main-content {
+        max-width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .content-box {
+        font-size: 14px;
+      }
+
+      .charadata_table {
+        border: 0;
+        font-size: 14px;
+      }
+
+      .charadata_table tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #fff;
+        overflow: hidden;
+        box-sizing: border-box;
+      }
+
+      .charadata_table td:first-child {
+        display: block;
+        background-color: #1E6C93;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        padding: 12px;
+        border: none;
+        border-radius: 5px 5px 0 0;
+        position: relative;
+        font-size: 16px;
+      }
+
+      .charadata_table td:nth-child(n+2) {
+        display: block;
+        padding: 10px 10px 10px 50%;
+        position: relative;
+        border: none;
+        border-bottom: 1px solid #eee;
+        text-align: left;
+        box-sizing: border-box;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+      }
+
+      .charadata_table tr td:nth-child(2) {
+        background-color: #f9f9f9;
+      }
+
+      .charadata_table tr td:nth-child(2)::before {
+        content: "玄真";
+        position: absolute;
+        left: 10px;
+        width: 40%;
+        padding-right: 10px;
+        font-weight: bold;
+        text-align: left;
+        color: #333;
+        white-space: nowrap;
+      }
+
+      .charadata_table tr td:nth-child(3) {
+        background-color: #e8f0f4;
+      }
+
+      .charadata_table tr td:nth-child(3)::before {
+        content: "克里姆特";
+        position: absolute;
+        left: 10px;
+        width: 40%;
+        padding-right: 10px;
+        font-weight: bold;
+        text-align: left;
+        color: #333;
+        white-space: nowrap;
+      }
+
+      .charadata_table img {
+        max-width: 70%;
+        margin: 5px auto;
+      }
+
+      .charadata_table td {
+        word-break: break-all;
+        line-height: 1.4;
+      }
+
+
+
+      .timeline_table {
+        border: 0;
+        font-size: 12px;
+        /* 減小字體大小 */
+      }
+
+      /* 長文本處理 */
+      .timeline_table td {
+        word-break: break-all;
+        line-height: 1.4;
+      }
+    }
+
+    @media screen and (max-width: 400px) {
+      .charadata_table {
+        font-size: 12px;
+      }
+
+      .charadata_table td:first-child {
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      .charadata_table td:nth-child(n+2) {
+        padding: 8px 10px 8px 45%;
+      }
+
+      .charadata_table td:nth-child(n+2)::before {
+        width: 35%;
+        font-size: 12px;
+      }
+
+      .charadata_table img {
+        max-width: 60%;
+      }
+    }
+    
+  </style>
+</head>
+
+<body>
+
+  <!-- 新導覽列按鈕與遮罩 -->
+  <nav id="sideNav" class="side-nav">
+    <button id="navMenuBtn" aria-label="開啟選單">
+      <span class="menu-icon">☰</span>
+      <span class="close-icon">×</span>
+    </button>
+    <!-- 側邊導覽列 -->
+    <a href="index.html">首頁</a>
+    <a href="chara_pic.html">圖片設定</a>
+    <a href="chara_setting.html" class="active">文字設定</a>
+    <a href="acknowledgement.html">標註/鳴謝</a>
+    <a href="report.html">問題回報</a>
+    <!-- 晚間模式切換按鈕 -->
+    <button id="toggleDarkModeBtn">☽ 晚間模式</button>
+  </nav>
+  <div class="side-nav-mask"></div>
+
+  <!-- 背景橫幅 -->
+  <div class="banner">
+    <div class="banner-content">
+      <h1>角色文字設定</h1>
+    </div>
+  </div>
+
+  <!-- 主要內容 -->
+  <div class="main-content">
+    <h2>【預警】</h2>
+    <p style="color: red; font-size: 38px; font-weight: bold;">本設定含有大量大逆轉裁判劇透及大量個人造謠與妄想，如無法接受請直接退設定即可。</p>
+    <hr>
+    <h2>【世界觀簡述】</h2>
+    <p>
+      原作：大逆轉裁判<br>背景：19世紀末（1890年左右）的英國和日本<br>概述：經歷了明治維新的日本，正處於傳統和新文化並存的文明開化時期。<br>另一方面，英國在維多利亞女王的統治下成為超級強國，被稱為日不落帝國。可是在這光輝的國度中也同時潛藏著黑暗。<br>故事的主舞台基本上都在英國進行。<br>其他：律師是需要自行到犯罪現場搜證獲得情報，官方的搜證由刑警負責，檢察官偶然也會到犯罪現場了解狀況。<br>除了法庭上會拍桌喊異議、丟酒杯、用後腳跟敲到桌面以外，其餘就跟普通現實世界一樣。
+    </p>
+    <hr>
+    <h2>【角色基本資料】</h2>
+    <table class="charadata_table">
+      <tr>
+        <td>大頭照（點圖片看詳細圖設定）</td>
+        <td><span class="headshot_container"><span class="headshot"><a
+                href="chara_pic.html#genshin-images" target="_blank"><img
+                  src="picture/shuja_genshin.jpg" alt="玄真大頭照"></a></span></span></td>
+        <td><span class="headshot_container"><span class="headshot"><a
+                href="chara_pic.html#klint-images" target="_blank"><img
+                  src="picture/shuja_klint.jpg" alt="克里姆特大頭照"></a></span></span></td>
+      </tr>
+      <tr>
+        <td>姓名</td>
+        <td>亞雙義玄真</td>
+        <td>克里姆特．班吉克斯</td>
+      </tr>
+      <tr>
+        <td>性別</td>
+        <td>男</td>
+        <td>男</td>
+      </tr>
+      <tr>
+        <td>年齡</td>
+        <td>33</td>
+        <td>33</td>
+      </tr>
+      <tr>
+        <td>身高</td>
+        <td>185</td>
+        <td>192</td>
+      </tr>
+      <tr>
+        <td>長相特徵</td>
+        <td>長髮男，綁頭髮的髮帶會一直飄起不會垂下<br>左手的無名字戴著戒指（詳見詳細圖設定）<br>身材偏纖瘦<br>身上帶有名為「狩魔（カルマ）」的武士刀</td>
+        <td>身材比較壯有肌肉<br>左胸口戴著檢察官徽章<br>手上戴著白色手套</td>
+      </tr>
+      <tr>
+        <td>國籍</td>
+        <td>日本</td>
+        <td>英國</td>
+      </tr>
+      <tr>
+        <td>職業</td>
+        <td>刑警</td>
+        <td>首席檢察官</td>
+      </tr>
+      <tr>
+        <td>身份</td>
+        <td>亞雙義家的當主</td>
+        <td>貴族，也是班吉克斯家的莊園領主</td>
+      </tr>
+      <tr>
+        <td>家庭狀況</td>
+        <td>已婚，育有一子</td>
+        <td>已婚，有一位弟弟<br><span class="spolier">有一個女兒，但在女兒出生前自己已經離世</span></td>
+
+      </tr>
+      <tr>
+        <td>喜好／習慣</td>
+        <td>劍術、書法、濃綠茶、清酒</td>
+        <td>劍術、紅酒</td>
+      </tr>
+      <tr>
+        <td>工作能力</td>
+        <td>優秀嚴謹</td>
+        <td>工作狂，熱愛工作，「在該報告的事出現的瞬間就已經完成了報告」</td>
+      </tr>
+      <tr>
+        <td>對對方稱呼</td>
+        <td>剛認識時：班吉克斯卿<br>工事上：班吉克斯檢察官<br>私下：克里姆特</td>
+        <td>剛認識時：Mr.亞雙義<br>工事上：亞雙義刑警<br>私下：玄真</td>
+      </tr>
+      <tr>
+        <td>他人稱呼</td>
+        <td>Mr.亞雙義</td>
+        <td>班吉克斯卿</td>
+      </tr>
+      <tr>
+        <td>其餘補充</td>
+        <td>作為刑警感官比較敏銳，也會更留意身邊的事物。<br>刀法非常厲害，甚至有秘傳的拔刀術可以把七米外的西瓜切開兩半。</td>
+        <td><img
+            src="picture/IronHelledWellington.gif"><br>會在法庭上使用狂野的鋼鐵後腳根，後來弟弟也有把它傳承下來。（GIF裏的是弟弟巴洛克）<br>也會在法庭上從「神之瓶」中倒出酒到「神之聖杯」，但結局通常都是捏破或丟破。<span
+            style="color: #cacaca;text-decoration:line-through;">不會丟到辯方臉上已經很有禮貌了</span></td>
+      </tr>
+    </table>
+    <hr>
+    <h2>【性格互動】</h2>
+    <h3>玄真</h3>
+    <div class="content-box">
+      <p>個性：高潔又堅強，穩重冷靜、禮數周全的紳士。</p>
+      <p>對他人的互動：對外人話少但有禮貌，不會特別應酬或迎合他人，對不感興趣的宴會邀請會婉拒。對朋友跟家人會親和一點。</p>
+      <p>對克里姆特的互動 ：志同道合的好搭檔，交流時說得比較少話的那個，也是比較能從對方的臉部表情讀出對方的想法的人。能夠靠臉部表情看得出對方是在煩惱明天的庭審還是煩惱午餐要吃什麼。</p>
+      <p>對工作的態度：在工作上對自己和對他人的要求都很高。但如果對方不是故意犯錯，還是會原諒，認為「先把事做好比罵人重要」。</p>
+      <p>其他：因為外貌會讓人覺得嚴肅（甚至是兇狠），大多數人不敢惹他。</p>
+    </div>
+    <h3>克里姆特</h3>
+    <div class="content-box">
+      <p>個性及行為：一言以蔽之，高貴的騎士。</p>
+      <p>有潔癖，手掌沾到墨水會立即清潔，戴手套除了是正裝以外，也是因為不想碰到任何髒東西。亦有痛恨一切邪惡的精神潔癖，同時也矛盾地在面對無法用法律手段制裁的腐敗貴族時會動用私刑。殺人後也會瘋狂洗手。</p>
+      <p>對他人的互動：對外人大多數是停留在表面的禮貌社交，和人有距離感，話題也只會停留在表面。因為貴族身份的關係也會擺一點架子。</p>
+      <p>只會對最親近的朋友或家人流露真情，在這方面有點傻，會跟認識的所有人講：「這是我弟弟，他要畢業了，請來參加他的畢業典禮吧！我送你門票！」直到他發現最多只能買4張門票。</p>
+      <p>對玄真的互動：同樣是志同道合的好搭檔，不會說禮貌但無意義的敷衍言辭而是直接說出自己的想法，因為信任對方所以會在對方面前抱怨工作上的煩惱。</p>
+      <p>對工作的態度：對自己和對他人的要求都很高，會對寫得爛的報告說interesting，然後要求回去重寫。對部下的扣薪會選擇不當面講，而是過兩天給對方詳細報告寫為什麼被扣薪。跟玄真一樣，覺得「把事做好比罵人重要」。</p>
+      <p>在法庭上如果證人或是辯方說了白癡話會嘲諷。</p>
+    </div>
+    <hr>
+    <h2>【時間軸】</h2>
+    <table class="timeline_table">
+      <tr>
+        <td>時期</td>
+        <td></td>
+        <td>玄真</td>
+        <td>克里姆特</td>
+      </tr>
+      <tr>
+        <td rowspan="5">初識</td>
+        <td>年齡</td>
+        <td>27</td>
+        <td>27</td>
+      </tr>
+      <tr>
+        <td>身分</td>
+        <td>剛來到英國的日本留學生</td>
+        <td>首席檢察官兼留學生的負責人之一</td>
+      </tr>
+      <tr>
+        <td>事件</td>
+        <td colspan="2">因為其中一位留學生堅持帶刀到英國而引起克里姆特的注意</td>
+      </tr>
+      <tr>
+        <td>互動範例</td>
+        <td colspan="2">
+          克里姆特：「您是……Mr.亞雙義對吧，能請教一下您帶刀來的理由嗎？」<br>玄真：「這把刀名『狩魔』，是亞雙義家的魂。而且只有最常用的刀才能像自己身體的一部分一樣順手，看您的劍您應該也能理解吧。」</td>
+      </tr>
+      <tr>
+        <td>對彼此的看法</td>
+        <td>上司，感受到對方應該是了解劍術的人</td>
+        <td>穩重的紳士，對對方起了興趣</td>
+      </tr>
+      <tr>
+        <td rowspan="5">相熟</td>
+        <td>年齡</td>
+        <td>27</td>
+        <td>27</td>
+      </tr>
+      <tr>
+        <td>身分</td>
+        <td>刑警</td>
+        <td>首席檢察官</td>
+      </tr>
+      <tr>
+        <td>事件</td>
+        <td colspan="2">原本只被分派到文書工作的玄真因為在路上捕獲犯人時使用的劍法而在蘇格蘭場聲名大噪，得知到此事的克里姆特私下約了玄真到他家練劍。</td>
+      </tr>
+      <tr>
+        <td>互動範例</td>
+        <td colspan="2">
+          克里姆特：「Mr.亞雙義，您的劍法果然名不虛傳啊！我很久沒有遇到能打得這麼盡興的對手了。」<br>玄真：「過獎了，您也是從小習武之人吧，能感受到您的劍法相當扎實。」<br>克里姆特：「是啊，能遇到劍術程度差不多的對手真是太好了。您有這種劍術卻留在辦公室太可惜了，剛好我手上有宗案件明天要去搜證，要跟我一起去嗎？」<br>玄真：「這是我的榮幸。」
+        </td>
+      </tr>
+      <tr>
+        <td>對彼此的看法</td>
+        <td>相性好的劍士</td>
+        <td>相性好的劍士</td>
+      </tr>
+      <tr>
+        <td rowspan="5">更相熟</td>
+        <td>年齡</td>
+        <td>28</td>
+        <td>28</td>
+      </tr>
+      <tr>
+        <td>身分</td>
+        <td>刑警</td>
+        <td>首席檢察官</td>
+      </tr>
+      <tr>
+        <td>事件</td>
+        <td colspan="2">兩人在克里姆特家練完劍後休息時發現巴洛克也在，於是克里姆特向玄真介紹巴洛克。</td>
+      </tr>
+      <tr>
+        <td>互動範例</td>
+        <td colspan="2">
+          克里姆特：「這位是我的弟弟巴洛克，現在在大學學習法律。這位是亞雙義刑警，是之前跟你提過的日本留學生，也是我現在的調查搭檔。」<br>玄真：「你好，我是亞雙義玄真，請多指教。」<br>巴洛克：「你好，叫我巴洛克就可以了，請多指教。」<br>克里姆特：「對了，以後直接叫我克里姆特就可以了，這樣就不用怕在叫我們時分辨不出來了，玄真。」
+        </td>
+      </tr>
+      <tr>
+        <td>對彼此的看法</td>
+        <td>好拍檔</td>
+        <td>好拍檔</td>
+      </tr>
+      <tr>
+        <td rowspan="9">教授案</td>
+        <td>年齡</td>
+        <td>33</td>
+        <td>33</td>
+      </tr>
+      <tr>
+        <td>身分</td>
+        <td>刑警</td>
+        <td>首席檢察官</td>
+      </tr>
+      <tr>
+        <td>事件</td>
+        <td colspan="2">兩人作為搭檔一起追查名為「教授案」的連續殺人案。<br>「教授」在半年內使用巨大的獵犬獵殺了四位貴族，其中三位是腐敗的貴族，另一位是克里姆特的恩人——當時的首席法官。</td>
+      </tr>
+      <tr>
+        <td>互動範例</td>
+        <td colspan="2">克里姆特：「玄真，你覺得我們真的能抓得住『教授』嗎？」<br>玄真：「只要我們繼續調查下去，肯定能把犯人繩之於法的。」</td>
+      </tr>
+      <tr>
+        <td>對彼此的看法</td>
+        <td>如果能抓到犯人就好了</td>
+        <td>如果你能抓到犯人那就好了……</td>
+      </tr>
+      <tr>
+        <td>事件</td>
+        <td colspan="2">玄真發現克里姆特就是「教授」，便來到克里姆特家與他對峙</td>
+      </tr>
+      <tr>
+        <td>互動範例</td>
+        <td colspan="2">
+          玄真：「如果你不願意自首的話，那麼就拔刀決鬥吧，克里姆特。」<br>克里姆特：「決鬥……？」<br>玄真：「我的目標是抓到『教授』，你的目標是不被抓住，在決鬥中獲勝的那方就能完成自己的目標。」<br>克里姆特：「……我明白了，但在決鬥之前我想寫下遺書，記錄所有真相。」
+        </td>
+      </tr>
+      <tr>
+        <td>對彼此的看法</td>
+        <td>安息吧</td>
+        <td>善良的日本人，給了我榮譽的死亡</td>
+      </tr>
+    </table>
+    <hr>
+    <div class="collapse-box">
+      <button type="button" class="collapse-header"><span class="arrow">▶</span>
+        <h2>【主線劇情－教授案】</h2>
+      </button>
+      <div class="collapse-content">
+        <div class="content-box">
+          「教授」在半年內使用巨大的獵犬獵殺了四位貴族，其中三位是腐敗的貴族，另一位是克里姆特的恩人——當時的首席法官。</p>
+          <p>
+            「教授」的真正身份是克里姆特，他因為在與腐敗的貴族對抗時感受到司法的無力，因此用獵犬實行了私刑。在這次的私刑後，沃爾特克斯找到了他，並威脅他成為自己的劊子手。他為了成為首席法官而要求克里姆特殺掉當時的首席法官、也是克里姆特的恩人，克里姆特因此崩潰。在「教授」殺了第四個人之後，玄真找到了沃爾特克斯，向他告發克里姆特即是「教授」。沃爾特克斯以證據不足為理由打發走玄真。
+          </p>
+          <p>隨後玄真便找上了克里姆特，向他提出決鬥。決鬥前克里姆特寫下坦白一切真相的遺書，並在決鬥中被玄真以西洋劍貫穿心臟，之後遺書由玄真收在「狩魔」的刀柄中。</p>
+          <p>
+            幾天後玄真與克里姆特的弟弟巴洛克在街上受到襲擊，玄真的戒指被搶走。之後玄真被捕，他因為外國人的身份過於敏感而被戴上鐵面具。沃爾特克斯與玄真以不公開克里姆特的遺書交易回國和家人重逢的機會。玄真被指控為殺害五位貴族的殺人犯「教授」，並由巴洛克擔任檢察官進行秘密審判，審判當中戒指被當作在克里姆特的胃中發現的證物，玄真也沒有作出異議就認罪了。
+          </p>
+          <p>被判死刑的幾天後玄真「受刑」，身體被放到棺材中運到墓地，並由沃爾特克斯和慈獄挖出。可是在他們打算挖出棺材前已經有盜墓者挖出玄真的棺材，沃爾特克斯為免計劃被發現，叫慈獄開槍將玄真射殺。
+        </div>
+      </div>
+    </div>
+    <div class="collapse-box">
+      <button type="button" class="collapse-header"><span class="arrow">▶</span>
+        <h3>玄真的遺書</h3>
+      </button>
+      <div class="collapse-content">
+        <div class="content-box">
+          <p>亞雙義玄真 記</p>
+          <p>我亞雙義玄真在倫敦所得到的財產以及所有的一切都送給我在日本的兒子亞雙義一真。</p>
+          <p>在遙遠的異國他鄉，無法和家人重逢就要匆匆離世，讓我不免哀愁。但是我的一生<span style="font-weight: bold;">從沒有後悔二字</span>。</p>
+          <p>一真啊，真相掩蓋在了黑暗之中。唯有「狩魔」能驅散黑暗。你要思考。將名刀拿在手中，<span class="popup2">好好動動頭腦</span>。</p>
+        </div>
+      </div>
+    </div>
+    <div class="collapse-box">
+      <button type="button" class="collapse-header"><span class="arrow">▶</span>
+        <h3>克里姆特的遺書</h3>
+      </button>
+      <div class="collapse-content">
+        <div class="content-box">
+          <p>我自願結束自己的生命，並在此留下最後的記錄。晚上11點，辦公室，身後站着我的朋友亞雙義。他依照古代的禮儀，向我提出《決鬥》。善良的日本人，給了我榮譽的「死亡」。</p>
+          <p>
+            我克里姆特·班吉克斯在此坦白：犯下4起殺人案的兇手——《教授》就是我。我身為貴族，對英國的「腐敗」更加了解，而我也沒有時間述說這些了。半年前，我殺死了身處「腐敗」中心的一個貴族院議員，他是一個利用地位和權力扭曲「法律」，讓我感到司法的無力的惡魔。要對抗這個殘忍的惡魔，我也只能讓我自己成為惡魔。那是一次「狩獵」，驕傲的獵犬之牙制裁了邪惡，但是，我並非是「獵人」，我只是一個「毫無經驗」的罪犯。有一個人識破了我的罪行，《威脅》了我，他說會將我的罪行告訴我最親愛的妻子與弟弟。那之後我就成了那個人的殺手，淪為了《殺人魔》。當我的恩人倒在我的面前的時候，我的內心徹底崩壞了。指揮我忠誠的愛犬殺人的我，也終於成為了野獸。我已經無法回頭。不管是我死也好，亞雙義死也好，不管怎麼樣，
+          </p>
+          <p>脅迫者哈特·沃爾特克斯，願你得到野獸的詛咒。</p>
+          <p>
+            我的人生即將走到盡頭，我唯一放心不下的就是我的弟弟。巴洛克啊，你遵循我的腳步，走上了檢察官的道路。我衷心希望我造的孽不會成為你的阻礙。我不奢求你的理解，但是，請你原諒哥哥。亞雙義是一個優秀的刑警，也是一個值得尊敬的《狩獵者》。他最後答應了我兩個《最後的願望》。其一是留下這封《遺書》，<span
+              class="popup">另一件事</span>…不能寫在這裏。我已經向妻子坦白了我的《罪行》。我死了，她應該就會明白一切。
+          </p>
+          <p>感謝我東洋的朋友。言盡於此。</p>
+          <p>克里姆特·班吉克斯 記 </p>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <h2>【其他角色】</h2>
+    <p>巴洛克．班吉克斯（23）：克里姆特的弟弟，志願是成為跟哥哥一樣的檢察官。是位文靜且關心別人的青年。</p>
+    <p>亞雙義一真（14）：玄真的兒子，跟母親一起待在日本。</p>
+    <p>御琴羽悠仁（33）：玄真的朋友，一起來到英國的日本留學生，在英國學習法醫學。</p>
+    <p>夏洛克．福爾摩斯（24）：舉世聞名的大偵探還未開始舉世聞名。擅自找了御琴羽當室友兼拍檔，或許能在犯罪現場看到他和御琴羽的推理？</p>
+    <p>慈獄政士郎（33）：玄真的朋友，一起來到英國的日本留學生，在英國學習法律。</p>
+    <p>哈特．沃爾特克斯（42）：高級檢察官，也是之後的首席法官。</p>
+    <hr>
+    <h2>【可利用梗概/Tag】</h2>
+    <li>黎明</li>
+    <li>冬季散步</li>
+    <li>罪與罰</li>
+    <li>密室、推理小說、正義女神</li>
+    <li>文化交流（雙方體驗彼此的文化，例如劍禪一如、英國下午茶、下棋）</li>
+    <li>習慣</li>
+    <li>流星</li>
+    <hr>
+    <footer>
+      <p>本網站由tong1743製作，內容與一切官方無關<br>想不到下面要放什麼所以放點隨機說話</p>
+      <p class="random-word"></p>
+    </footer>
+    <!-- 返回頂部按鈕 -->
+    <button id="backToTopBtn">
+      <img src="picture/backtotop.gif" alt="回到頂端" />
+    </button>
+  </div>
+
+
+
+
+  <script>
+
+    // 隨機說話
+    function getRandomWord() {
+      const wordList = [
+        "請大家支持克里姆特切腹因為這是日本版的榮譽的死亡",
+        "說是決鬥但其實更像介錯",
+        "賀！玄克里終於要出官方週邊了！",
+        "我的同人女潔癖是只有玄真能殺死克里姆特",
+        "我喜歡玄真的遺書中講他自己一生從沒有後悔二字",
+        "亞雙義玄真的臉很常跳嚇到我和我朋友",
+        "玄真有8張官方圖然後有5.5張都在雙手抱胸",
+        "玄真唯二是有在笑的圖是跟他兒子的合照",
+        "我在排版時看到玄真的立繪就想笑",
+        "玄真的英文名叫Genshin（真的）",
+        "圖設定中有玄真衝擊",
+      ];
+      return wordList[Math.floor(Math.random() * wordList.length)];
+    }
+    var randomWord = document.querySelector('.random-word');
+    randomWord.textContent = getRandomWord();
+
+
+    // popup 提示動態定位，確保不超出 .content-box
+    function adjustPopupPosition(e) {
+      var popup = e.currentTarget;
+      var before = popup;
+      // 觸發 :before 的顯示
+      popup.classList.add('js-popup-hover');
+      setTimeout(function () {
+        // 取得生成的 ::before
+        var pseudo = window.getComputedStyle(popup, '::before');
+        // 用 JS 取得 .content-box
+        var contentBox = popup.closest('.content-box') || document.body;
+        var popupRect = popup.getBoundingClientRect();
+        var boxRect = contentBox.getBoundingClientRect();
+        // 嘗試定位
+        var beforeEl = document.createElement('div');
+        beforeEl.style.position = 'absolute';
+        beforeEl.style.visibility = 'hidden';
+        beforeEl.style.pointerEvents = 'none';
+        beforeEl.style.whiteSpace = 'pre-line';
+        beforeEl.style.fontSize = '12px';
+        beforeEl.style.background = 'rgba(0,0,0,0.8)';
+        beforeEl.style.color = 'white';
+        beforeEl.style.padding = '10px';
+        beforeEl.style.borderRadius = '10px';
+        beforeEl.style.zIndex = '9999';
+        beforeEl.style.boxSizing = 'border-box';
+        beforeEl.style.width = '180px';
+        beforeEl.style.maxWidth = '220px';
+        beforeEl.textContent = popup.getAttribute('data-popup-content');
+        document.body.appendChild(beforeEl);
+        // 重新量測，確保換行後高度正確
+        var beforeRect = beforeEl.getBoundingClientRect();
+        // 預設右側
+        var left = popupRect.right;
+        var top = popupRect.top;
+        // 先判斷右側空間
+        var rightSpace = boxRect.right - popupRect.right;
+        var leftSpace = popupRect.left - boxRect.left;
+        var canShowRight = beforeRect.width <= rightSpace;
+        var canShowLeft = beforeRect.width <= leftSpace;
+        // 若下方超出
+        if (top + beforeRect.height > boxRect.bottom) {
+          // 若右側足夠，僅調整top
+          if (canShowRight) {
+            top = boxRect.bottom - beforeRect.height;
+          } else if (canShowLeft) {
+            // 否則左側有空間則顯示左側
+            left = popupRect.left - beforeRect.width;
+            top = boxRect.bottom - beforeRect.height;
+          } else {
+            // 兩側都不夠，盡量貼齊box
+            left = boxRect.left;
+            top = boxRect.bottom - beforeRect.height;
+          }
+        } else {
+          // 下方沒超出，若右側不夠則考慮左側
+          if (!canShowRight && canShowLeft) {
+            left = popupRect.left - beforeRect.width;
+          } else if (!canShowRight && !canShowLeft) {
+            left = boxRect.left;
+          }
+        }
+        // 邊界修正
+        if (top < boxRect.top) top = boxRect.top;
+        if (left < boxRect.left) left = boxRect.left;
+        beforeEl.remove();
+        // 設定 CSS 變數
+        popup.style.setProperty('--popup-left', (left - popupRect.left) + 'px');
+        popup.style.setProperty('--popup-top', (top - popupRect.top) + 'px');
+      }, 10);
+    }
+    function resetPopupPosition(e) {
+      var popup = e.currentTarget;
+      popup.classList.remove('js-popup-hover');
+      popup.style.removeProperty('--popup-left');
+      popup.style.removeProperty('--popup-top');
+    }
+    document.querySelectorAll('.popup, .popup2').forEach(function (el) {
+      // 將原本的內容移到 data-popup-content
+      if (el.classList.contains('popup')) {
+        el.setAttribute('data-popup-content', '指的是自己的老婆和女兒。\n當時他的老婆即將分娩，他托付玄真找人接生與照顧自己的女兒，並且不希望他人知道她的身份，以免被自己連累。\n最後女兒被福爾摩斯收養，取名為愛麗絲．華生。');
+      } else {
+        el.setAttribute('data-popup-content', '除了思考的意思，也指需要轉動刀的頭腦（指刀柄的頂端），該處藏有克里姆特的遺書。');
+      }
+      el.addEventListener('mouseenter', adjustPopupPosition);
+      el.addEventListener('mouseleave', resetPopupPosition);
+      el.addEventListener('touchstart', adjustPopupPosition);
+      el.addEventListener('touchend', resetPopupPosition);
+    });
+    // 晚間模式切換
+    var darkModeBtn = document.getElementById('toggleDarkModeBtn');
+    function setDarkMode(on) {
+      document.body.classList.toggle('dark-mode', on);
+      darkModeBtn.textContent = on ? '☀  日間模式' : '☽ 晚間模式';
+    }
+    darkModeBtn.addEventListener('click', function () {
+      var isDark = document.body.classList.toggle('dark-mode');
+      darkModeBtn.textContent = isDark ? '☀  日間模式' : '☽ 晚間模式';
+      try { localStorage.setItem('darkMode', isDark ? '1' : '0'); } catch (e) { }
+    });
+    // 自動載入上次選擇
+    (function () {
+      try {
+        var saved = localStorage.getItem('darkMode');
+        if (saved === '1') setDarkMode(true);
+      } catch (e) { }
+    })();
+
+    // 側邊導覽列開關
+    var navMenuBtn = document.getElementById('navMenuBtn');
+    var sideNav = document.getElementById('sideNav');
+    var sideNavMask = document.querySelector('.side-nav-mask');
+    function setSideNavOpen(open) {
+      if (open) {
+        sideNav.classList.add('open');
+      } else {
+        sideNav.classList.remove('open');
+      }
+    }
+    navMenuBtn.addEventListener('click', function () {
+      var isOpen = sideNav.classList.contains('open');
+      setSideNavOpen(!isOpen);
+    });
+    sideNavMask.addEventListener('click', function () {
+      setSideNavOpen(false);
+    });
+    sideNav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        setSideNavOpen(false);
+      });
+    });
+
+    // collapse-box toggle
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.collapse-box').forEach(function (box) {
+        var btn = box.querySelector('.collapse-header');
+        btn.addEventListener('click', function () {
+          box.classList.toggle('open');
+        });
+      });
+    });
+  </script>
+  <script>
+    // 返回頂部按鈕顯示/隱藏
+    var backToTopBtn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 150) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+    backToTopBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>網站大綱跳轉 - 響應式設計</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        /* 主要內容樣式 */
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1, h2, h3, h4 {
+            margin-bottom: 1rem;
+            scroll-margin-top: 80px;
+        }
+
+        h1 { 
+            color: #2c3e50; 
+            font-size: 2.5rem; 
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 { 
+            color: #34495e; 
+            font-size: 2rem; 
+            border-bottom: 2px solid #ecf0f1; 
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        h3 { 
+            color: #5d6d7e; 
+            font-size: 1.5rem; 
+            margin-top: 1.5rem;
+        }
+        
+        h4 { 
+            color: #7f8c8d; 
+            font-size: 1.25rem; 
+            margin-top: 1rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #7f8c8d;
+        }
+
+        /* 大綱按鈕樣式 */
+        .outline-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 56px;
+            height: 56px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 關閉狀態樣式 */
+        .outline-btn.close-mode {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            transform: rotate(45deg);
+            font-size: 24px;
+        }
+
+        .outline-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .outline-btn.close-mode:hover {
+            transform: rotate(45deg) scale(1.1);
+        }
+
+        .outline-btn:active {
+            transform: scale(0.95);
+        }
+
+        .outline-btn.close-mode:active {
+            transform: rotate(45deg) scale(0.95);
+        }
+
+        /* 手機端按鈕調整 */
+        @media (max-width: 768px) {
+            .outline-btn {
+                top: 15px;
+                right: 15px;
+                width: 50px;
+                height: 50px;
+                font-size: 18px;
+            }
+            
+            .outline-btn.close-mode {
+                font-size: 22px;
+            }
+        }
+
+        /* 大綱側邊欄樣式 */
+        .outline-sidebar {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .outline-sidebar.active {
+            right: 0;
+        }
+
+        /* 側邊欄標頭 */
+        .outline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            background: #f8f9fa;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .outline-header h3 {
+            color: #2c3e50;
+            font-size: 1.25rem;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #7f8c8d;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+
+        .close-btn:hover {
+            background-color: #e9ecef;
+        }
+
+        /* 大綱內容 */
+        .outline-content {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .outline-item {
+            margin-bottom: 8px;
+            padding: 8px 0;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .outline-item:hover {
+            color: #667eea;
+            background-color: #f8f9fa;
+            padding-left: 10px;
+            border-left-color: #667eea;
+        }
+
+        .outline-item:focus {
+            outline: 2px solid #667eea;
+            outline-offset: -2px;
+        }
+
+        .outline-item h2,
+        .outline-item h3,
+        .outline-item h4 {
+            margin: 0;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .outline-item.h2 { 
+            font-size: 1.1rem; 
+            color: #34495e;
+            padding-left: 0;
+            border-left: 3px solid #3498db;
+        }
+
+        .outline-item.h3 { 
+            font-size: 1rem; 
+            color: #5d6d7e;
+            padding-left: 15px;
+            border-left: 2px solid #95a5a6;
+        }
+
+        .outline-item.h4 { 
+            font-size: 0.9rem; 
+            color: #7f8c8d;
+            padding-left: 30px;
+            border-left: 1px solid #bdc3c7;
+        }
+
+        .outline-count {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* 手機端側邊欄調整 */
+        @media (max-width: 768px) {
+            .outline-sidebar {
+                width: 280px;
+            }
+            
+            .outline-header {
+                padding: 15px;
+            }
+            
+            .outline-content {
+                padding: 15px;
+            }
+            
+            .outline-item.h2 { font-size: 1rem; }
+            .outline-item.h3 { font-size: 0.95rem; }
+            .outline-item.h4 { font-size: 0.85rem; }
+        }
+
+        /* 覆蓋層 */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* 手機端覆蓋層優化 */
+        @media (max-width: 768px) {
+            .overlay.active {
+                background: rgba(0, 0, 0, 0.7);
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+            
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.75rem; }
+            h3 { font-size: 1.25rem; }
+            h4 { font-size: 1.1rem; }
+            
+            section {
+                padding: 15px;
+                margin-bottom: 2rem;
+            }
+        }
+
+        /* 載入動畫 */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            color: #999;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 大綱按鈕 -->
+    <button id="outlineBtn" class="outline-btn" aria-label="顯示頁面大綱" title="頁面大綱">
+        📑
+    </button>
+
+    <!-- 大綱側邊欄 -->
+    <div id="outlineSidebar" class="outline-sidebar">
+        <div class="outline-header">
+            <h3>📚 頁面大綱</h3>
+            <button id="closeOutline" class="close-btn" aria-label="關閉大綱">×</button>
+        </div>
+        <div id="outlineContent" class="outline-content">
+            <div class="loading">
+                <div class="spinner"></div>
+                <span>正在生成大綱...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 覆蓋層 -->
+    <div id="overlay" class="overlay"></div>
+
+    <!-- 頁面內容 -->
+    <main class="main-content">
+        <header>
+            <h1>網站大綱跳轉示範</h1>
+            <p>這是一個響應式的大綱跳轉功能，支援桌面端和手機端。點擊右上角的📑按鈕查看頁面大綱！</p>
+        </header>
+
+        <section id="section1">
+            <h2>🌟 功能介紹</h2>
+            <p>這個大綱跳轉功能提供了以下特性：</p>
+            <ul>
+                <li>📱 完全響應式設計，適配各種設備</li>
+                <li>🎨 美觀的漸變按鈕和滑入動畫</li>
+                <li>♿ 完整的可訪問性支援</li>
+                <li>⚡ 流暢的滾動跳轉效果</li>
+                <li>🔄 動態按鈕切換（打開時變成關閉按鈕）</li>
+            </ul>
+
+            <h3>按鈕設計</h3>
+            <p>右上角的固定按鈕使用漸變背景，點擊後會出現側邊欄大綱。當側邊欄打開時，按鈕會自動變成紅色的關閉按鈕（×），點擊即可關閉側邊欄。</p>
+
+            <h4>動畫效果</h4>
+            <p>側邊欄使用 CSS 轉換實現平滑的滑入/滑出效果，覆蓋層提供背景模糊效果。按鈕在切換狀態時會有旋轉動畫效果。</p>
+        </section>
+
+        <section id="section2">
+            <h2>📱 手機端優化</h2>
+            <p>在手機端，這個功能進行了以下優化：</p>
+
+            <h3>觸控友好</h3>
+            <p>按鈕尺寸調整為 50px，符合觸控設計規範。側邊欄寬度適配手機屏幕，避免遮擋過多內容。</p>
+
+            <h4>覆蓋層增強</h4>
+            <p>手機端的覆蓋層不透明度提高到 70%，提供更好的視覺分離效果。</p>
+
+            <h3>內容適配</h3>
+            <p>大綱文字大小根據屏幕尺寸自動調整，確保在小屏幕上依然可讀。關閉按鈕在手機端會稍微放大以便觸控。</p>
+        </section>
+
+        <section id="section3">
+            <h2>♿ 可訪問性</h2>
+            <p>這個功能考慮了無障礙設計需求：</p>
+
+            <h3>鍵盤導航</h3>
+            <p>支持 Tab 鍵導航和 ESC 鍵關閉側邊欄，符合 WCAG 標準。按鈕狀態變化會通過 ARIA 屬性正確通報。</p>
+
+            <h4>螢幕閱讀器</h4>
+            <p>所有互動元素都包含適當的 ARIA 標籤，確保螢幕閱讀器能正確識別。按鈕文字會根據狀態動態變化。</p>
+
+            <h3>焦點管理</h3>
+            <p>開啟/關閉側邊欄時，自動管理焦點位置，避免用戶迷失。按鈕狀態變化時會正確更新焦點。</p>
+        </section>
+
+        <section id="section4">
+            <h2>🎨 自定義選項</h2>
+            <p>你可以在 CSS 中輕鬆自定義樣式：</p>
+
+            <h3>更改按鈕顏色</h3>
+            <p>修改 <code>.outline-btn</code> 的 <code>background</code> 屬性和 <code>.outline-btn.close-mode</code> 的背景色來更改按鈕顏色。</p>
+
+            <h4>調整側邊欄寬度</h4>
+            <p>修改 <code>.outline-sidebar</code> 的 <code>width</code> 屬性來調整側邊欄寬度。</p>
+
+            <h3>動畫速度</h3>
+            <p>調整 <code>transition</code> 屬性的時間值來改變動畫速度。關閉按鈕的旋轉動畫可以通過 <code>transform: rotate()</code> 自定義。</p>
+        </section>
+
+        <section id="section5">
+            <h2>🚀 快速入門</h2>
+            <p>使用步驟：</p>
+
+            <h3>1. 添加 HTML 結構</h3>
+            <p>將按鈕和側邊欄 HTML 代碼添加到你的頁面中。</p>
+
+            <h4>2. 包含 CSS 樣式</h4>
+            <p>複製 CSS 代碼到你的樣式表中，或內嵌在 <code>&lt;style&gt;</code> 標籤中。</p>
+
+            <h3>3. 添加 JavaScript</h3>
+            <p>將 JavaScript 代碼放在 <code>&lt;script&gt;</code> 標籤中或外部文件中。</p>
+
+            <h4>4. 在內容中使用標題</h4>
+            <p>在你的頁面中使用 <code>h2</code>、<code>h3</code>、<code>h4</code> 標籤，大綱會自動生成。</p>
+        </section>
+
+        <footer>
+            <p>© 2025 網站大綱跳轉功能示範。點擊右上角按鈕查看大綱！</p>
+        </footer>
+    </main>
+
+    <script>
+        // 確保 DOM 加載完成
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing OutlineNavigation...');
+            
+            class OutlineNavigation {
+                constructor() {
+                    this.outlineBtn = document.getElementById('outlineBtn');
+                    this.outlineSidebar = document.getElementById('outlineSidebar');
+                    this.closeOutlineBtn = document.getElementById('closeOutline');
+                    this.overlay = document.getElementById('overlay');
+                    this.outlineContent = document.getElementById('outlineContent');
+                    
+                    console.log('Elements found:', {
+                        outlineBtn: !!this.outlineBtn,
+                        outlineSidebar: !!this.outlineSidebar,
+                        closeOutlineBtn: !!this.closeOutlineBtn,
+                        overlay: !!this.overlay
+                    });
+                    
+                    this.init();
+                }
+
+                init() {
+                    console.log('Initializing...');
+                    this.generateOutline();
+                    this.bindEvents();
+                }
+
+                // 生成大綱
+                generateOutline() {
+                    console.log('Generating outline...');
+                    const headings = document.querySelectorAll('h1, h2, h3, h4');
+                    console.log(`Found ${headings.length} headings`);
+                    
+                    if (headings.length === 0) {
+                        this.outlineContent.innerHTML = '<div class="outline-count" style="color: #999; text-align: center; padding: 40px;">此頁面沒有標題</div>';
+                        return;
+                    }
+
+                    const outlineHTML = Array.from(headings).map((heading, index) => {
+                        const level = heading.tagName.toLowerCase();
+                        const text = heading.textContent.trim();
+                        const id = heading.id || this.createId(heading, index);
+                        
+                        // 為標題添加 ID（如果沒有）
+                        if (!heading.id) {
+                            heading.id = id;
+                        }
+
+                        // 截斷過長的文字
+                        const displayText = text.length > 50 ? text.substring(0, 50) + '...' : text;
+
+                        return `
+                            <div class="outline-item ${level}" data-target="${id}" role="button" tabindex="0" aria-label="跳轉到 ${displayText}">
+                                <${level}>${displayText}</${level}>
+                            </div>
+                        `;
+                    }).join('');
+
+                    this.outlineContent.innerHTML = `
+                        <div class="outline-count">找到 ${headings.length} 個標題</div>
+                        ${outlineHTML}
+                    `;
+                    
+                    console.log('Outline generated successfully');
+                }
+
+                // 創建 ID
+                createId(heading, index) {
+                    const text = heading.textContent.trim()
+                        .toLowerCase()
+                        .replace(/[^a-z0-9\u4e00-\u9fa5\s]/g, '')
+                        .replace(/\s+/g, '-')
+                        .substring(0, 20);
+                    return `heading-${index}-${Date.now()}-${text}`;
+                }
+
+                // 綁定事件
+                bindEvents() {
+                    console.log('Binding events...');
+                    
+                    if (!this.outlineBtn) {
+                        console.error('Outline button not found!');
+                        return;
+                    }
+
+                    // 打開大綱
+                    this.outlineBtn.addEventListener('click', (e) => {
+                        console.log('Outline button clicked');
+                        e.preventDefault();
+                        if (this.outlineSidebar.classList.contains('active')) {
+                            this.closeOutline();
+                        } else {
+                            this.openOutline();
+                        }
+                    });
+
+                    // 關閉大綱（側邊欄內的關閉按鈕）
+                    if (this.closeOutlineBtn) {
+                        this.closeOutlineBtn.addEventListener('click', (e) => {
+                            console.log('Close button clicked');
+                            e.preventDefault();
+                            this.closeOutline();
+                        });
+                    }
+
+                    // 點擊覆蓋層關閉
+                    if (this.overlay) {
+                        this.overlay.addEventListener('click', (e) => {
+                            console.log('Overlay clicked');
+                            this.closeOutline();
+                        });
+                    }
+
+                    // 綁定大綱項目點擊事件
+                    document.addEventListener('click', (e) => {
+                        const outlineItem = e.target.closest('.outline-item');
+                        if (outlineItem) {
+                            console.log('Outline item clicked');
+                            e.preventDefault();
+                            const targetId = outlineItem.dataset.target;
+                            this.scrollToSection(targetId);
+                            this.closeOutline();
+                        }
+                    });
+
+                    // 鍵盤事件
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape' && this.outlineSidebar.classList.contains('active')) {
+                            console.log('ESC pressed, closing outline');
+                            e.preventDefault();
+                            this.closeOutline();
+                        }
+                        
+                        // Enter 鍵觸發點擊
+                        if (e.key === 'Enter' && e.target.closest('.outline-item')) {
+                            console.log('Enter pressed on outline item');
+                            e.preventDefault();
+                            const targetId = e.target.closest('.outline-item').dataset.target;
+                            this.scrollToSection(targetId);
+                            this.closeOutline();
+                        }
+                    });
+
+                    // 為大綱項目添加焦點樣式
+                    document.addEventListener('focus', (e) => {
+                        if (e.target.classList.contains('outline-item')) {
+                            e.target.style.outline = '2px solid #667eea';
+                        }
+                    }, true);
+
+                    document.addEventListener('blur', (e) => {
+                        if (e.target.classList.contains('outline-item')) {
+                            e.target.style.outline = 'none';
+                        }
+                    }, true);
+
+                    console.log('Events bound successfully');
+                }
+
+                // 打開大綱
+                openOutline() {
+                    console.log('Opening outline');
+                    
+                    // 切換按鈕到關閉模式
+                    this.switchToCloseMode();
+                    
+                    this.outlineSidebar.classList.add('active');
+                    this.overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    
+                    // 焦點管理
+                    if (this.closeOutlineBtn) {
+                        this.closeOutlineBtn.focus();
+                    }
+                }
+
+                // 關閉大綱
+                closeOutline() {
+                    console.log('Closing outline');
+                    
+                    // 切換按鈕回到正常模式
+                    this.switchToNormalMode();
+                    
+                    this.outlineSidebar.classList.remove('active');
+                    this.overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                    
+                    // 返回焦點到按鈕
+                    if (this.outlineBtn) {
+                        this.outlineBtn.focus();
+                    }
+                }
+
+                // 切換到關閉模式
+                switchToCloseMode() {
+                    if (this.outlineBtn) {
+                        this.outlineBtn.classList.add('close-mode');
+                        this.outlineBtn.innerHTML = '×';
+                        this.outlineBtn.setAttribute('aria-label', '關閉頁面大綱');
+                        this.outlineBtn.title = '關閉大綱';
+                    }
+                }
+
+                // 切換到正常模式
+                switchToNormalMode() {
+                    if (this.outlineBtn) {
+                        this.outlineBtn.classList.remove('close-mode');
+                        this.outlineBtn.innerHTML = '📑';
+                        this.outlineBtn.setAttribute('aria-label', '顯示頁面大綱');
+                        this.outlineBtn.title = '頁面大綱';
+                    }
+                }
+
+                // 滾動到指定章節
+                scrollToSection(targetId) {
+                    console.log(`Scrolling to section: ${targetId}`);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        // 添加高亮效果
+                        targetElement.style.backgroundColor = '#fff3cd';
+                        targetElement.style.borderLeft = '4px solid #ffc107';
+                        targetElement.style.borderRadius = '4px';
+                        targetElement.style.paddingLeft = '10px';
+                        setTimeout(() => {
+                            targetElement.style.backgroundColor = '';
+                            targetElement.style.borderLeft = '';
+                            targetElement.style.borderRadius = '';
+                            targetElement.style.paddingLeft = '';
+                        }, 2000);
+                    } else {
+                        console.error(`Target element not found: ${targetId}`);
+                    }
+                }
+            }
+
+            // 初始化
+            try {
+                new OutlineNavigation();
+                console.log('OutlineNavigation initialized successfully');
+            } catch (error) {
+                console.error('Failed to initialize OutlineNavigation:', error);
+            }
+
+            // 確保平滑滾動
+            if ('scrollBehavior' in document.documentElement.style) {
+                document.documentElement.style.scrollBehavior = 'smooth';
+            }
+        });
+    </script>
+</body>
+</html>
