@@ -107,8 +107,7 @@
       position: relative;
     }
 
-    .popup,
-    .popup2 {
+    .popup {
       color: #84B1ED;
       cursor: pointer;
       text-decoration: underline;
@@ -116,8 +115,7 @@
       text-wrap: nowrap;
     }
 
-    .popup::before,
-    .popup2::before {
+    .popup::before {
       content: attr(data-popup-content);
       white-space: pre-line;
       text-indent: 0;
@@ -140,8 +138,7 @@
       box-sizing: border-box;
     }
 
-    .popup:hover::before,
-    .popup2:hover::before {
+    .popup:hover::before {
       opacity: 1;
       pointer-events: auto;
     }
@@ -576,6 +573,25 @@
       text-indent: 2em;
     }
 
+    .content-box p {
+      margin: 0.4em 0;
+    }
+
+
+    .content-box .image-container {
+      width: 100%;
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .content-box img {
+      max-width: 70%;
+      height: auto;
+      border-radius: 5px;
+
+    }
+
     /* 自訂收合區塊 collapse-box */
     .collapse-box {
       border: 1px solid #bbb;
@@ -626,7 +642,7 @@
 
     .collapse-box.open .collapse-content {
       padding: 1em 1.2em;
-      max-height: 800px;
+      max-height: 1200px;
       /* 根據內容調整最大高度 */
     }
 
@@ -737,6 +753,7 @@
       .content-box {
         font-size: 14px;
       }
+
 
       .charadata_table {
         border: 0;
@@ -902,7 +919,8 @@
     <table class="charadata_table">
       <tr>
         <td>大頭照（點圖片看詳細圖設定）</td>
-        <td><div class="headshot_container">
+        <td>
+          <div class="headshot_container">
             <div class="headshot">
               <a href="chara_pic.html#genshin-images" target="_blank">
                 <img src="webp/shuja_genshin.webp" alt="玄真大頭照" loading="lazy">
@@ -910,7 +928,8 @@
             </div>
           </div>
         </td>
-        <td><div class="headshot_container">
+        <td>
+          <div class="headshot_container">
             <div class="headshot">
               <a href="chara_pic.html#klint-images" target="_blank">
                 <img src="webp/shuja_klint.webp" alt="克里姆特大頭照" loading="lazy">
@@ -987,7 +1006,9 @@
       </tr>
       <tr>
         <td>其餘補充</td>
-        <td>作為刑警感官比較敏銳，也會更留意身邊的事物。<br>不會說謊，但會在有需要時隱瞞部分事實。例如<span class="spolier">在獄中被問到「那五個人都是你殺的嗎？」只回答了「我確實是奪走了別人性命的罪無可赦之人」。事實上五個被害人中只有克里姆特是被玄真殺害的。</span><br>刀法非常厲害，甚至有秘傳的拔刀術可以把七米外的西瓜切開兩半。</td>
+        <td>作為刑警感官比較敏銳，也會更留意身邊的事物。<br>不會說謊，但會在有需要時隱瞞部分事實。例如<span
+            class="spolier">在獄中被問到「那五個人都是你殺的嗎？」只回答了「我確實是奪走了別人性命的罪無可赦之人」。事實上五個被害人中只有克里姆特是被玄真殺害的。</span><br>刀法非常厲害，甚至有秘傳的拔刀術可以把七米外的西瓜切開兩半。
+        </td>
         <td><img src="picture/IronHelledWellington.gif"
             loading="lazy"><br>會在法庭上使用狂野的鋼鐵後腳根，後來弟弟也有把它傳承下來。（GIF裏的是弟弟巴洛克）<br>也會在法庭上從「神之瓶」中倒出酒到「神之聖杯」，但結局通常都是捏破或丟破。<span
             style="color: #cacaca;text-decoration:line-through;">不會丟到辯方臉上已經很有禮貌了</span></td>
@@ -1146,45 +1167,55 @@
       </button>
       <div class="collapse-content">
         <div class="content-box">
-          <p>「教授」在半年內使用巨大的獵犬獵殺了四位貴族，其中三位是腐敗的貴族，另一位是克里姆特的恩人——當時的首席法官。</p>
           <p>
-            「教授」的真正身份是克里姆特，他因為在與腐敗的貴族對抗時感受到司法的無力，因此用獵犬實行了私刑。在這次的私刑後，沃爾特克斯找到了他，並威脅他成為自己的劊子手。他為了成為首席法官而要求克里姆特殺掉當時的首席法官、也是克里姆特的恩人，克里姆特因此崩潰。在「教授」殺了第四個人之後，玄真找到了沃爾特克斯，向他告發克里姆特即是「教授」。沃爾特克斯以證據不足為理由打發走玄真。
-          </p>
-          <p>隨後玄真便找上了克里姆特，向他提出決鬥。決鬥前克里姆特寫下坦白一切真相的遺書，並在決鬥中被玄真以西洋劍貫穿心臟，之後遺書由玄真收在「狩魔」的刀柄中。</p>
+            「教授」在半年內使用巨大的獵犬獵殺了四位貴族，其中三位是腐敗的貴族，另一位是克里姆特的恩人——當時的首席法官。</p>
           <p>
-            幾天後玄真與克里姆特的弟弟巴洛克在街上受到襲擊，玄真的戒指被搶走。之後玄真被捕，他因為外國人的身份過於敏感而被戴上鐵面具。沃爾特克斯與玄真以不公開克里姆特的遺書交易回國和家人重逢的機會。玄真被指控為殺害五位貴族的殺人犯「教授」，並由巴洛克擔任檢察官進行秘密審判，審判當中戒指被指出是在克里姆特的胃中發現，為了指證兇手而吞下的證物，玄真沒有作出任何異議就認罪了。
+            「教授」的真正身份是克里姆特，他因為在與腐敗的貴族對抗時感受到司法的無力，因此用獵犬實行私刑。在第一次私刑後，沃爾特克斯找到了克里姆特，以家人威脅他成為自己的劊子手。之後沃爾特克斯便開始指使克里姆特殺人。在第三次的私刑，沃爾特克斯為了成為首席法官，要求克里姆特殺掉當時的首席法官、亦是克里姆特的恩人，克里姆特因此崩潰。在克里姆特殺了第四個人之後，玄真找到了沃爾特克斯，向他告發克里姆特即是「教授」。沃爾特克斯以證據不足為理由打發走玄真。
           </p>
-          <p>被判死刑的幾天後玄真「受刑」，身體被放到棺材中運到墓地，並由沃爾特克斯和慈獄挖出。可是在他們打算挖出棺材前已經有盜墓者挖出玄真的棺材，沃爾特克斯為免計劃被發現，叫慈獄開槍將玄真射殺。</p>
+          <p>
+            隨後玄真找上了克里姆特，向他提出決鬥。決鬥前克里姆特以緋色墨水寫下坦白一切真相的遺書，並在決鬥中被玄真以西洋劍貫穿心臟而死，之後遺書由玄真收在「狩魔」的刀柄中。</p>
+          <p>
+            幾天後玄真與克里姆特的弟弟巴洛克在街上受到襲擊，玄真的戒指被搶走。之後玄真被指控為殺害五位貴族的殺人犯「教授」。被捕後，他因作為外國人的身份過於敏感而被戴上鐵面具。在拘留時，沃爾特克斯與玄真以不公開克里姆特的遺書交易回國和家人重逢的機會。秘密審判原本是由沃爾特克斯擔任檢察官，但因為巴洛克的要求而改為由巴洛克擔任。審判中玄真的戒指被指出是在克里姆特的胃中發現，為了指證兇手而吞下的證物，玄真沒有作出任何異議就認罪了。
+          </p>
+          <p>
+            在玄真受刑前，蠟像館的女主人找到沃爾特克斯。她按家族制作知名死刑犯的蠟像的傳統，要求制作教授的蠟像。沃爾特克斯開出的條件是蠟像的鐵面具不能脫下。</p>
+          <p>
+            被判死刑的幾天後玄真「受刑」，身體被放進棺材從監獄運到墓地，並由沃爾特克斯和慈獄挖出。可是在他們打算挖出棺材前，已經有盜墓者挖出玄真的棺材。沃爾特克斯為免計劃被發現，叫慈獄開槍將玄真射殺。玄真死後，他的臉被蠟像館的女主人取模。事後盜墓者在報紙宣稱自己看到教授從墓地中「復活」，並附有畫出當時的情景的畫作。蠟像館的女主人便按照報紙中的畫作的姿勢製作教授的蠟像。
+          </p>
+          <div class="image-container">
+            <img src="webp/wax_sculptures.webp" loading="lazy" />
+          </div>
         </div>
       </div>
     </div>
     <div class="collapse-box">
       <button type="button" class="collapse-header"><span class="arrow">▶</span>
-        <h3>玄真的遺書</h3>
+        <h3>玄真的遺書（原作文本）</h3>
       </button>
       <div class="collapse-content">
         <div class="content-box">
           <p>亞雙義玄真 記</p>
           <p>我亞雙義玄真在倫敦所得到的財產以及所有的一切都送給我在日本的兒子亞雙義一真。</p>
           <p>在遙遠的異國他鄉，無法和家人重逢就要匆匆離世，讓我不免哀愁。但是我的一生<span style="font-weight: bold;">從沒有後悔二字</span>。</p>
-          <p>一真啊，真相掩蓋在了黑暗之中。唯有「狩魔」能驅散黑暗。你要思考。將名刀拿在手中，<span class="popup2">好好動動頭腦</span>。</p>
+          <p>一真啊，真相掩蓋在了黑暗之中。唯有「狩魔」能驅散黑暗。你要思考。將名刀拿在手中，<span class="popup2 popup">好好動動頭腦</span>。</p>
         </div>
       </div>
     </div>
     <div class="collapse-box">
       <button type="button" class="collapse-header"><span class="arrow">▶</span>
-        <h3>克里姆特的遺書</h3>
+        <h3>克里姆特的遺書（原作文本）</h3>
       </button>
       <div class="collapse-content">
         <div class="content-box">
-          <p>我自願結束自己的生命，並在此留下最後的記錄。晚上11點，辦公室，身後站着我的朋友亞雙義。他依照古代的禮儀，向我提出《決鬥》。善良的日本人，給了我榮譽的「死亡」。</p>
+          <p>我自願結束自己的生命，並在此留下最後的記錄。晚上11點，辦公室，身後站着我的朋友亞雙義。他依照古代的禮儀，向我提出《決鬥》。善良的日本人，<span
+              class="popup4 popup">給了我榮譽的「死亡」</span>。</p>
           <p>
             我克里姆特·班吉克斯在此坦白：犯下4起殺人案的兇手——《教授》就是我。我身為貴族，對英國的「腐敗」更加了解，而我也沒有時間述說這些了。半年前，我殺死了身處「腐敗」中心的一個貴族院議員，他是一個利用地位和權力扭曲「法律」，讓我感到司法的無力的惡魔。要對抗這個殘忍的惡魔，我也只能讓我自己成為惡魔。那是一次「狩獵」，驕傲的獵犬之牙制裁了邪惡，但是，我並非是「獵人」，我只是一個「毫無經驗」的罪犯。有一個人識破了我的罪行，《威脅》了我，他說會將我的罪行告訴我最親愛的妻子與弟弟。那之後我就成了那個人的殺手，淪為了《殺人魔》。當我的恩人倒在我的面前的時候，我的內心徹底崩壞了。指揮我忠誠的愛犬殺人的我，也終於成為了野獸。我已經無法回頭。不管是我死也好，亞雙義死也好，不管怎麼樣，
           </p>
-          <p>脅迫者哈特·沃爾特克斯，願你得到野獸的詛咒。</p>
+          <p>脅迫者哈特·沃爾特克斯，<span class="popup3 popup">願你得到野獸的詛咒</span>。</p>
           <p>
             我的人生即將走到盡頭，我唯一放心不下的就是我的弟弟。巴洛克啊，你遵循我的腳步，走上了檢察官的道路。我衷心希望我造的孽不會成為你的阻礙。我不奢求你的理解，但是，請你原諒哥哥。亞雙義是一個優秀的刑警，也是一個值得尊敬的《狩獵者》。他最後答應了我兩個《最後的願望》。其一是留下這封《遺書》，<span
-              class="popup">另一件事</span>…不能寫在這裏。我已經向妻子坦白了我的《罪行》。我死了，她應該就會明白一切。
+              class="popup1 popup">另一件事</span>…不能寫在這裏。我已經向妻子坦白了我的《罪行》。我死了，她應該就會明白一切。
           </p>
           <p>感謝我東洋的朋友。言盡於此。</p>
           <p>克里姆特·班吉克斯 記 </p>
@@ -1324,12 +1355,16 @@
       popup.style.removeProperty('--popup-left');
       popup.style.removeProperty('--popup-top');
     }
-    document.querySelectorAll('.popup, .popup2').forEach(function (el) {
+    document.querySelectorAll('.popup').forEach(function (el) {
       // 將原本的內容移到 data-popup-content
-      if (el.classList.contains('popup')) {
+      if (el.classList.contains('popup1')) {
         el.setAttribute('data-popup-content', '指的是自己的老婆和女兒。\n當時他的老婆即將分娩，他托付玄真找人接生與照顧自己的女兒，並且不希望他人知道她的身份，以免被自己連累。\n最後女兒被福爾摩斯收養，取名為愛麗絲．華生。');
-      } else {
+      } else if (el.classList.contains('popup2')) {
         el.setAttribute('data-popup-content', '除了思考的意思，也指需要轉動刀的頭腦（指刀柄的頂端），該處藏有克里姆特的遺書。');
+      } else if (el.classList.contains('popup3')) {
+        el.setAttribute('data-popup-content', '這句的英譯文本為「願你在每次吞嚥時，都能感受到野獸的尖牙扺在你的喉嚨上」。\n個人覺得更符合克里姆特。');
+      } else if (el.classList.contains('popup4')) {
+        el.setAttribute('data-popup-content', '這句的英譯文本增加了一句「那是一份我不值得擁有的榮譽」。');
       }
       el.addEventListener('mouseenter', adjustPopupPosition);
       el.addEventListener('mouseleave', resetPopupPosition);
