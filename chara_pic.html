@@ -337,72 +337,70 @@
                         </figure>
                     </div>
                 </section>
-
-                <hr>
-                <footer>
-                    <p>本網站由tong1743製作，內容與一切官方無關<br>想不到下面要放什麼所以放點隨機說話</p>
-                    <p class="random-word"></p>
-                </footer>
-                <!-- 返回頂部按鈕 -->
-                <button id="backToTopBtn">
-                    <img src="picture/backtotop.gif" alt="回到頂端" />
-                </button>
             </main>
-
-
         </div>
-        <!-- 模態視窗 -->
-        <div id="imageModal" class="modal">
-            <div class="zoom-info">
-                ↔ 切換圖片 | ↕ /滾輪 縮放 | 拖拽 移動 | ESC 關閉
+        <hr>
+        <footer>
+            <p>本網站由tong1743製作，內容與一切官方無關<br>想不到下面要放什麼所以放點隨機說話</p>
+            <p class="random-word"></p>
+        </footer>
+        <!-- 返回頂部按鈕 -->
+        <button id="backToTopBtn">
+            <img src="picture/backtotop.gif" alt="回到頂端" />
+        </button>
+    </div>
+    <!-- 模態視窗 -->
+    <div id="imageModal" class="modal">
+        <div class="zoom-info">
+            ↔ 切換圖片 | ↕ /滾輪 縮放 | 拖拽 移動 | ESC 關閉
+        </div>
+
+        <!-- 下載圖片按鈕 -->
+
+        <button class="modal-prev" onclick="plusSlides(-1)">
+            <div class="modal-icon"></div>
+        </button>
+        <div class="zoom-controls">
+            <button class="zoom-btn" id="zoomIn" title="放大">+</button>
+            <button class="zoom-btn" id="zoomOut" title="縮小">−</button>
+            <button class="zoom-btn" id="zoomReset" title="重置">⟲</button>
+        </div>
+
+
+        <div class="modal-content">
+            <div class="buttons">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div class="download-controls">
+                    <button class="download-btn" id="downloadOriginal" title="下載原始尺寸圖片" disabled>
+                        <div class="download-icon"></div>
+                    </button>
+                </div>
+            </div>
+            <!-- 視窗容器 -->
+            <div class="modal-viewport">
+                <div id="modalImageContainer" class="modal-image-container">
+                    <!-- 圖片會在這裡動態插入 -->
+                    <img id="modalImage" alt="圖片預覽">
+                </div>
+
+                <!-- 載入指示器 -->
+                <div class="loading-indicator" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>載入中...</p>
+                </div>
             </div>
 
-            <!-- 下載圖片按鈕 -->
-
-            <button class="modal-prev" onclick="plusSlides(-1)">
+            <button class="modal-next" onclick="plusSlides(1)">
                 <div class="modal-icon"></div>
             </button>
-            <div class="zoom-controls">
-                <button class="zoom-btn" id="zoomIn" title="放大">+</button>
-                <button class="zoom-btn" id="zoomOut" title="縮小">−</button>
-                <button class="zoom-btn" id="zoomReset" title="重置">⟲</button>
-            </div>
+            <div class="modal-caption" id="caption">點擊圖片查看預覽</div>
 
+            <!-- 下載提示 -->
+            <div id="downloadTooltip" class="download-tooltip"></div>
+        </div>
 
-            <div class="modal-content">
-                <div class="buttons">
-                    <span class="close" onclick="closeModal()">&times;</span>
-                    <div class="download-controls">
-                        <button class="download-btn" id="downloadOriginal" title="下載原始尺寸圖片" disabled>
-                            <div class="download-icon"></div>
-                        </button>
-                    </div>
-                </div>
-                <!-- 視窗容器 -->
-                <div class="modal-viewport">
-                    <div id="modalImageContainer" class="modal-image-container">
-                        <!-- 圖片會在這裡動態插入 -->
-                        <img id="modalImage" alt="圖片預覽">
-                    </div>
-
-                    <!-- 載入指示器 -->
-                    <div class="loading-indicator" style="display: none;">
-                        <div class="spinner"></div>
-                        <p>載入中...</p>
-                    </div>
-                </div>
-
-                <button class="modal-next" onclick="plusSlides(1)">
-                    <div class="modal-icon"></div>
-                </button>
-                <div class="modal-caption" id="caption">點擊圖片查看預覽</div>
-
-                <!-- 下載提示 -->
-                <div id="downloadTooltip" class="download-tooltip"></div>
-            </div>
-
-            <script src="common/common_js.js" defer></script>
-            <script src="non_common/chara_pic.js" defer></script>
+        <script src="common/common_js.js" defer></script>
+        <script src="non_common/chara_pic.js" defer></script>
 </body>
 
 </html>
