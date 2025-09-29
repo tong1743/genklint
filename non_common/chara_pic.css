@@ -1,0 +1,828 @@
+/* 黑暗模式配色 */
+body.dark-mode .character-section {
+    background: #232834;
+    border-color: #3a4a5a;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+}
+
+body.dark-mode .character-section h3 {
+    color: #7ecfff;
+    border-left-color: #7ecfff;
+}
+
+body.dark-mode .character-description {
+    background: #181c22;
+    border-left-color: #7ecfff;
+}
+
+body.dark-mode .character-description h4 {
+    color: #7ecfff;
+}
+
+body.dark-mode .character-description p {
+    color: #d3d7de;
+}
+
+body.dark-mode .outfit-indicator {
+    background: #232834;
+    color: #7ecfff;
+    border-color: #7ecfff;
+}
+
+body.dark-mode .image-item figcaption {
+    color: white;
+}
+
+body.dark-mode .container {
+    background: #181c22;
+}
+
+body.dark-mode .modal {
+    background-color: rgba(24, 28, 34, 0.98);
+}
+
+body.dark-mode .modal-content {
+    background: #232834;
+}
+
+body.dark-mode .modal-caption {
+    color: #7ecfff;
+}
+
+body.dark-mode .outfit-nav button {
+    background: #2e6b97;
+    color: #fff;
+}
+
+body.dark-mode .outfit-nav button:disabled {
+    background: #3a4a5a;
+    color: #888;
+}
+
+body.dark-mode .outfit-nav button:hover:not(:disabled) {
+    background: #7ecfff;
+    color: #232834;
+}
+
+/*劇透圖片介紹*/
+.spoiler_image figcaption {
+    color: red !important;
+}
+
+
+/* 讓選單按鈕和回到頂端按鈕可被JS隱藏 */
+#navMenuBtn.hidden, #backToTopBtn.hidden {
+    display: none !important;
+}
+
+/*容器*/
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.character-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.character-section {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.character-section:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.character-section h3 {
+    color: #2c3e50;
+    font-size: 1.6em;
+    margin-bottom: 20px;
+    border-left: 5px solid #3498db;
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/*名字標題前加上家紋*/
+.character-section:first-child h3:before {
+    content: url(../picture/asogi_mark.png);
+    height: 30px;
+    width: 30px;
+}
+
+.character-section:nth-child(2) h3::before,
+.character-section:nth-child(3) h3::before {
+    content: url(../picture/vanzieks_mark.png);
+    width: 34px;
+    height: 32px;
+}
+
+/* 服裝切換控制區域 */
+.outfit-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.outfit-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.outfit-nav button {
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.outfit-nav button:hover:not(:disabled) {
+    background: #2980b9;
+}
+
+.outfit-nav button:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.outfit-nav button .arrow-icon {
+    background: white;
+    width: 20px;
+    height: 20px;
+    mask: url(../icon/left-arrow.svg) no-repeat center center;
+    -webkit-mask: url(../icon/left-arrow.svg) no-repeat center center;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    position: relative;
+    right: 2px;
+}
+
+.outfit-nav button .arrow-icon.right {
+    transform: scaleX(-1);
+    left: 2px;
+}
+
+
+.outfit-indicator {
+    background: #f8f9fa;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    color: #3498db;
+    font-size: 0.95em;
+    border: 2px solid #e3f2fd;
+}
+
+.character-description {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-left: 4px solid #17a2b8;
+}
+
+.character-description h4 {
+    color: #17a2b8;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+}
+
+.character-description p {
+    color: #6c757d;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+.character-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 10px 0;
+    position: relative;
+}
+
+/* 已隱藏的圖片不佔用空間 */
+.image-item {
+    position: relative;
+    /* 固定寬高 */
+    width: 200px;
+    height: 250px;
+    flex: 0 0 auto;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    /* 切掉超出內容 */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.image-item.hidden {
+    display: none !important;
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    width: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* 固定尺寸的圖片容器 */
+.image-item img,
+.image-item .image-placeholder {
+    /* 填滿整個容器 */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 填滿容器，切掉超出部分 */
+    object-position: top;
+    /* 從中心開始切掉 */
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 3px solid transparent;
+    display: block;
+    /* 切掉超出邊界 */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.image-item img:hover,
+.image-item .image-placeholder:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    border-color: #3498db;
+}
+
+.image-item figcaption {
+    text-align: center;
+    font-size: 0.85em;
+    color: white;
+    text-shadow: #666 0.5px 0.5px 0,
+        #666 -0.5px -0.5px 0,
+        #666 0.5px -0.5px 0,
+        #666 -0.5px 0.5px 0;
+    top: 80%;
+    padding: 0 5px;
+    font-weight: 500;
+    line-height: 1.3;
+    /* 固定高度的標題區域 */
+    height: 2.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    pointer-events: none;
+}
+
+/* 隱藏時的圖片說明文字也不顯示 */
+.image-item.hidden figcaption {
+    display: none;
+}
+
+/* 服裝標籤 */
+.outfit-tag {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #e74c3c;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75em;
+    font-weight: bold;
+    z-index: 10;
+}
+
+/* 模態視窗*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    animation: fadeIn 0.3s ease;
+    overflow: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-content {
+    position: relative;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 固定容器大小，不隨內容變化 */
+    width: 90vw;
+    height: 90vh;
+    max-width: 1200px;
+    max-height: 800px;
+    min-height: 400px;
+    padding: 20px;
+    box-sizing: border-box;
+    animation: zoomIn 0.3s ease;
+}
+
+/* 固定大小的圖片檢視區域 */
+.modal-viewport {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+/* 圖片容器 - 固定在視窗內 */
+.modal-image-container.prepare {
+    opacity: 0 !important;
+}
+
+.modal-image-container {
+    opacity: 1;
+    position: relative;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    cursor: grab;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-image-container:active {
+    cursor: grabbing;
+}
+
+.modal-image-container img {
+    /* 初始狀態：長邊適配容器 */
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    object-fit: contain;
+    display: block;
+    transform-origin: center center;
+}
+
+/* 縮放狀態下的圖片容器 */
+.modal-image-container.zoomed {
+    max-width: none;
+    max-height: none;
+}
+
+.modal-image-container.zoomed img {
+    cursor: move;
+    max-width: none;
+    max-height: none;
+}
+
+/* 下載鈕樣式 */
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    gap: 10px;
+    z-index: 1001;
+}
+
+.download-controls {
+    position: relative;
+    display: flex;
+    z-index: 1001;
+}
+
+.download-btn {
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.download-btn:hover:not(:disabled) {
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.download-btn:active {
+    transform: scale(0.95);
+}
+
+.download-btn:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    opacity: 0.5;
+}
+
+.download-btn .download-icon {
+    background: white;
+    width: 30px;
+    height: 30px;
+    mask: url(../icon/download-icon.svg) no-repeat center center;
+    -webkit-mask: url(../icon/download-icon.svg) no-repeat center center;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+}
+
+/* 控制按鈕定位調整 */
+/*關閉鈕*/
+.close {
+    position: relative;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.close:hover,
+.close:focus {
+    color: #fff;
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/*切換圖片按鈕*/
+.modal-prev,
+.modal-next {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border:rgba(255, 255, 255, 0.2) 2px solid;;
+    padding: 15px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    backdrop-filter: blur(10px);
+}
+
+.modal-icon{
+    background: white;
+    width: 30px;
+    height: 30px;
+    mask: url(../icon/left-arrow.svg) no-repeat center center;
+    -webkit-mask: url(../icon/left-arrow.svg) no-repeat center center;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    position: relative;
+    right: 2px;
+}
+
+.modal-next .modal-icon{
+    transform: scaleX(-1);
+    left: 2px;
+}
+
+
+.modal-next {
+    right: 20px;
+}
+
+.modal-prev {
+    left: 20px;
+}
+
+.modal-prev:hover,
+.modal-next:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+    transform: translateY(-50%) scale(1.1);
+    color: #fff;
+}
+
+.modal-prev:disabled,
+.modal-next:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: translateY(-50%) scale(1);
+}
+
+.zoom-controls {
+    position: fixed;
+    right: 100px;
+    top: 20px;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.zoom-info {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: #ccc;
+    font-size: 0.9em;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 8px 12px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    z-index: 1001;
+    pointer-events: none;
+}
+
+.zoom-btn {
+    background: rgba(0, 0, 0, 0.6);
+    border: rgba(255, 255, 255, 0.2) 1px solid;
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.zoom-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+}
+/*圖片描述*/
+.modal-caption {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ccc;
+    padding: 15px 20px;
+    font-size: 1.2em;
+    font-weight: 500;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 25px;
+    max-width: 90%;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    z-index: 1001;
+}
+
+
+/* 動畫效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+
+    .character-section {
+        padding: 20px;
+    }
+
+    .character-section h3 {
+        font-size: 1.4em;
+        flex-wrap: wrap;
+    }
+
+    .image-item {
+        width: 160px;
+        height: 200px;
+    }
+
+    .image-item figcaption {
+        font-size: 0.8em;
+        height: 2.2em;
+    }
+
+    .outfit-nav button {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+
+    .close {
+        font-size: 30px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .modal-prev,
+    .modal-next {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        padding: 15px;
+        
+    }
+
+    .modal-prev {
+        left: 10px;
+    }
+
+    .modal-next {
+        right: 10px;
+    }
+
+    .zoom-controls {
+        right: 70px;
+        top: 15px;
+    }
+
+    .zoom-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+
+    .modal-caption {
+        bottom: 15px;
+        font-size: 1em;
+        padding: 10px 15px;
+        max-width: 95%;
+    }
+
+    .modal-image-container img {
+        max-height: 70vh;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .character-images {
+        gap: 12px;
+        justify-content: center;
+    }
+
+    .image-item {
+        max-width: 140px;
+    }
+
+    .character-section h3 {
+        font-size: 1.3em;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .outfit-controls {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+
+    .outfit-nav {
+        justify-content: center;
+    }
+
+    .outfit-indicator {
+        text-align: center;
+    }
+
+    .modal-prev,
+    .modal-next {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+
+    .zoom-controls {
+        right: 60px;
+        gap: 5px;
+    }
+
+    .zoom-btn {
+        width: 30px;
+        height: 30px;
+    }
+
+    .zoom-info {
+        display: none;
+    }
+}
+
+
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+
+
+    .download-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .download-btn .download-icon {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+
+
+    .download-btn {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* 下載提示樣式 */
+.download-tooltip {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85em;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1002;
+    backdrop-filter: blur(10px);
+}
+
+.download-tooltip.show {
+    opacity: 1;
+}
