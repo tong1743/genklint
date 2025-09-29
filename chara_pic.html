@@ -146,7 +146,7 @@
         }
 
         body.dark-mode .outfit-nav button {
-            background: linear-gradient(135deg, #2e6b97, #232834);
+            background: #2e6b97;
             color: #fff;
         }
 
@@ -156,7 +156,7 @@
         }
 
         body.dark-mode .outfit-nav button:hover:not(:disabled) {
-            background: linear-gradient(135deg, #7ecfff, #2e6b97);
+            background: #7ecfff;
             color: #232834;
         }
 
@@ -600,7 +600,7 @@
         }
 
         .outfit-nav button {
-            background: linear-gradient(135deg, #3498db, #2980b9);
+            background: #3498db;
             color: white;
             border: none;
             border-radius: 50%;
@@ -610,15 +610,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
         }
 
         .outfit-nav button:hover:not(:disabled) {
-            background: linear-gradient(135deg, #2980b9, #1f618d);
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+            background: #2980b9;
         }
 
         .outfit-nav button:disabled {
@@ -627,6 +623,24 @@
             transform: none;
             box-shadow: none;
         }
+
+        .outfit-nav button .arrow-icon {
+            background: white;
+            width: 20px;
+            height: 20px;
+            mask: url(icon/left-arrow.svg) no-repeat center center;
+            -webkit-mask: url(icon/left-arrow.svg) no-repeat center center;
+            mask-size: contain;
+            -webkit-mask-size: contain;
+            position: relative;
+            right: 2px;
+        }
+
+        .outfit-nav button .arrow-icon.right {
+            transform: scaleX(-1);
+            left: 2px;
+        }
+
 
         .outfit-indicator {
             background: #f8f9fa;
@@ -1073,6 +1087,9 @@
             right: 100px;
             top: 20px;
             z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
         .zoom-info {
@@ -1091,8 +1108,8 @@
 
         .zoom-btn {
             background: rgba(0, 0, 0, 0.6);
+            border:rgba(255, 255, 255, 0.2) 1px solid;
             color: white;
-            border: none;
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -1179,6 +1196,7 @@
                 height: 50px;
                 font-size: 20px;
                 padding: 15px;
+                border: rgba(255, 255, 255, 0.2) 2px solid;
             }
 
             .modal-prev {
@@ -1253,7 +1271,6 @@
 
             .zoom-controls {
                 right: 60px;
-                flex-direction: row;
                 gap: 5px;
             }
 
@@ -1352,9 +1369,13 @@
 
                     <div class="outfit-controls">
                         <div class="outfit-nav">
-                            <button class="outfit-prev" onclick="changeOutfit('genshin', -1)">‹</button>
+                            <button class="outfit-prev" onclick="changeOutfit('genshin', -1)">
+                                <div class="arrow-icon"></div>
+                            </button>
                             <div class="outfit-indicator" id="outfit-indicator-genshin">日常服</div>
-                            <button class="outfit-next" onclick="changeOutfit('genshin', 1)">›</button>
+                            <button class="outfit-next" onclick="changeOutfit('genshin', 1)">
+                                <div class="arrow-icon right"></div>
+                            </button>
                         </div>
                     </div>
 
@@ -1461,186 +1482,189 @@
                     </div>
                 </section>
 
-                    <section class="character-section" data-character="klint">
-                        <h3>克里姆特·班吉克斯</h3>
+                <section class="character-section" data-character="klint">
+                    <h3>克里姆特·班吉克斯</h3>
 
-                        <div class="outfit-controls">
-                            <div class="outfit-nav">
-                                <button class="outfit-prev" onclick="changeOutfit('klint', -1)">‹</button>
-                                <div class="outfit-indicator" id="outfit-indicator-klint">日常服</div>
-                                <button class="outfit-next" onclick="changeOutfit('klint', 1)">›</button>
-                            </div>
+                    <div class="outfit-controls">
+                        <div class="outfit-nav">
+                            <button class="outfit-prev" onclick="changeOutfit('klint', -1)">
+                                <div class="arrow-icon"></div>
+                            </button>
+                            <div class="outfit-indicator" id="outfit-indicator-klint">日常服</div>
+                            <button class="outfit-next" onclick="changeOutfit('klint', 1)">
+                                <div class="arrow-icon right"></div>
+                            </button>
                         </div>
+                    </div>
 
-                        <div class="character-description">
-                            <h4>角色特徵</h4>
-                            <ul>
-                                <li>33歲，大英帝國的首席檢察官</li>
-                                <li>身高192，身材偏壯，有明顯肌肉</li>
-                                <li>表情：平常比較認真，跟朋友相處時會笑得比較多</li>
-                                <li>左胸口掛著檢察官徽章，手戴著手套</li>
-                            </ul>
-                        </div>
+                    <div class="character-description">
+                        <h4>角色特徵</h4>
+                        <ul>
+                            <li>33歲，大英帝國的首席檢察官</li>
+                            <li>身高192，身材偏壯，有明顯肌肉</li>
+                            <li>表情：平常比較認真，跟朋友相處時會笑得比較多</li>
+                            <li>左胸口掛著檢察官徽章，手戴著手套</li>
+                        </ul>
+                    </div>
 
-                        <div class="character-images" id="klint-images">
-                            <!-- 日常服 (預設顯示) -->
-                            <figure class="image-item" data-outfit="daily" data-slide="14">
-                                <img src="webp/Klint_Full_Body.webp" data-webp-src="webp/Klint_Full_Body.webp"
-                                    data-original-src="picture/Klint_Full_Body.png" alt="正面全身立繪" data-caption="正面全身立繪"
-                                    loading="lazy">
-                                <figcaption>正面全身立繪</figcaption>
-                            </figure>
+                    <div class="character-images" id="klint-images">
+                        <!-- 日常服 (預設顯示) -->
+                        <figure class="image-item" data-outfit="daily" data-slide="14">
+                            <img src="webp/Klint_Full_Body.webp" data-webp-src="webp/Klint_Full_Body.webp"
+                                data-original-src="picture/Klint_Full_Body.png" alt="正面全身立繪" data-caption="正面全身立繪"
+                                loading="lazy">
+                            <figcaption>正面全身立繪</figcaption>
+                        </figure>
 
-                            <figure class="image-item" data-outfit="daily" data-slide="15">
-                                <img src="webp/Klint_Artbook.webp" data-webp-src="webp/Klint_Artbook.webp"
-                                    data-original-src="picture/Klint_Artbook.jpg" alt="正面+大頭" data-caption="正面+大頭"
-                                    loading="lazy">
-                                <figcaption>正面+大頭</figcaption>
-                            </figure>
+                        <figure class="image-item" data-outfit="daily" data-slide="15">
+                            <img src="webp/Klint_Artbook.webp" data-webp-src="webp/Klint_Artbook.webp"
+                                data-original-src="picture/Klint_Artbook.jpg" alt="正面+大頭" data-caption="正面+大頭"
+                                loading="lazy">
+                            <figcaption>正面+大頭</figcaption>
+                        </figure>
 
-                            <figure class="image-item" data-outfit="daily" data-slide="16">
-                                <img src="webp/klint_accessories.webp" data-webp-src="webp/klint_accessories.webp"
-                                    data-original-src="picture/klint_accessories.png" alt="配件細節" data-caption="配件細節"
-                                    loading="lazy">
-                                <figcaption>配件細節</figcaption>
-                            </figure>
+                        <figure class="image-item" data-outfit="daily" data-slide="16">
+                            <img src="webp/klint_accessories.webp" data-webp-src="webp/klint_accessories.webp"
+                                data-original-src="picture/klint_accessories.png" alt="配件細節" data-caption="配件細節"
+                                loading="lazy">
+                            <figcaption>配件細節</figcaption>
+                        </figure>
 
-                            <figure class="image-item" data-outfit="daily" data-slide="17">
-                                <img src="webp/young_klint.webp" data-webp-src="webp/young_klint.webp"
-                                    data-original-src="picture/young_klint.jpg" alt="年輕克里姆特和小巴洛克"
-                                    data-caption="年輕克里姆特和小巴洛克" loading="lazy">
-                                <figcaption>年輕克里姆特和小巴洛克</figcaption>
-                            </figure>
+                        <figure class="image-item" data-outfit="daily" data-slide="17">
+                            <img src="webp/young_klint.webp" data-webp-src="webp/young_klint.webp"
+                                data-original-src="picture/young_klint.jpg" alt="年輕克里姆特和小巴洛克" data-caption="年輕克里姆特和小巴洛克"
+                                loading="lazy">
+                            <figcaption>年輕克里姆特和小巴洛克</figcaption>
+                        </figure>
 
-                            <figure class="image-item" data-outfit="daily" data-slide="18">
-                                <img src="webp/klint_artbook_cover.webp" data-webp-src="webp/klint_artbook_cover.webp"
-                                    data-original-src="picture/klint_artbook_cover.jpg" alt="後腳跟兄弟" data-caption="後腳跟兄弟"
-                                    loading="lazy">
-                                <figcaption>後腳跟兄弟</figcaption>
-                            </figure>
+                        <figure class="image-item" data-outfit="daily" data-slide="18">
+                            <img src="webp/klint_artbook_cover.webp" data-webp-src="webp/klint_artbook_cover.webp"
+                                data-original-src="picture/klint_artbook_cover.jpg" alt="後腳跟兄弟" data-caption="後腳跟兄弟"
+                                loading="lazy">
+                            <figcaption>後腳跟兄弟</figcaption>
+                        </figure>
 
-                            <!-- Paro -->
-                            <figure class="image-item hidden" data-outfit="paro" data-slide="19">
-                                <img src="webp/siu_nicola_klint.webp" data-webp-src="webp/siu_nicola_klint.webp"
-                                    data-original-src="picture/siu_nicola_klint.png" alt="吸血鬼"
-                                    data-caption="吸血鬼 繪師：Siu Nicola" loading="lazy">
-                                <figcaption>吸血鬼<br>繪師：Siu Nicola</figcaption>
-                            </figure>
+                        <!-- Paro -->
+                        <figure class="image-item hidden" data-outfit="paro" data-slide="19">
+                            <img src="webp/siu_nicola_klint.webp" data-webp-src="webp/siu_nicola_klint.webp"
+                                data-original-src="picture/siu_nicola_klint.png" alt="吸血鬼"
+                                data-caption="吸血鬼 繪師：Siu Nicola" loading="lazy">
+                            <figcaption>吸血鬼<br>繪師：Siu Nicola</figcaption>
+                        </figure>
 
-                            <figure class="image-item hidden" data-outfit="paro" data-slide="20">
-                                <img src="webp/bat.webp" data-webp-src="webp/bat.webp"
-                                    data-original-src="picture/bat.png" alt="蝙蝠" data-caption="蝙蝠 繪師：春日喫茶"
-                                    loading="lazy">
-                                <figcaption>蝙蝠<br>繪師：春日喫茶</figcaption>
-                            </figure>
+                        <figure class="image-item hidden" data-outfit="paro" data-slide="20">
+                            <img src="webp/bat.webp" data-webp-src="webp/bat.webp" data-original-src="picture/bat.png"
+                                alt="蝙蝠" data-caption="蝙蝠 繪師：春日喫茶" loading="lazy">
+                            <figcaption>蝙蝠<br>繪師：春日喫茶</figcaption>
+                        </figure>
 
-                            <figure class="image-item hidden" data-outfit="paro" data-slide="21">
-                                <img src="webp/duel_klint.webp" data-webp-src="webp/duel_klint.webp"
-                                    data-original-src="picture/duel_klint.png" alt="決鬥者" data-caption="決鬥者 繪師：淵夢"
-                                    loading="lazy">
-                                <figcaption>決鬥者<br>繪師：淵夢</figcaption>
-                            </figure>
+                        <figure class="image-item hidden" data-outfit="paro" data-slide="21">
+                            <img src="webp/duel_klint.webp" data-webp-src="webp/duel_klint.webp"
+                                data-original-src="picture/duel_klint.png" alt="決鬥者" data-caption="決鬥者 繪師：淵夢"
+                                loading="lazy">
+                            <figcaption>決鬥者<br>繪師：淵夢</figcaption>
+                        </figure>
 
-                            <figure class="image-item hidden" data-outfit="paro" data-slide="22">
-                                <img src="webp/placeholder2.webp" data-webp-src="webp/placeholder2.webp"
-                                    data-original-src="picture/placeholder2.jpg" alt="placeholder"
-                                    data-caption="這套娃衣好難穿" loading="lazy">
-                                <figcaption>好想看他們穿和服</figcaption>
-                            </figure>
+                        <figure class="image-item hidden" data-outfit="paro" data-slide="22">
+                            <img src="webp/placeholder2.webp" data-webp-src="webp/placeholder2.webp"
+                                data-original-src="picture/placeholder2.jpg" alt="placeholder" data-caption="這套娃衣好難穿"
+                                loading="lazy">
+                            <figcaption>好想看他們穿和服</figcaption>
+                        </figure>
 
-                            <!-- 其他 -->
-                            <figure class="image-item hidden spolier" data-outfit="other" data-slide="23">
-                                <img src="webp/Genshin_Impact.webp" data-webp-src="webp/Genshin_Impact.webp"
-                                    data-original-src="picture/Genshin_Impact.png" alt="原神衝擊" data-caption="玄克里決鬥前"
-                                    loading="lazy">
-                                <figcaption>劇透注意</figcaption>
-                            </figure>
+                        <!-- 其他 -->
+                        <figure class="image-item hidden spolier" data-outfit="other" data-slide="23">
+                            <img src="webp/Genshin_Impact.webp" data-webp-src="webp/Genshin_Impact.webp"
+                                data-original-src="picture/Genshin_Impact.png" alt="原神衝擊" data-caption="玄克里決鬥前"
+                                loading="lazy">
+                            <figcaption>劇透注意</figcaption>
+                        </figure>
 
-                            <figure class="image-item hidden" data-outfit="other" data-slide="24">
-                                <img src="webp/klintbarok.webp" data-webp-src="webp/klintbarok.webp"
-                                    data-original-src="picture/klintbarok.png" alt="克里姆特和巴洛克" data-caption="克里姆特和巴洛克"
-                                    loading="lazy">
-                                <figcaption>克里姆特和巴洛克</figcaption>
-                            </figure>
+                        <figure class="image-item hidden" data-outfit="other" data-slide="24">
+                            <img src="webp/klintbarok.webp" data-webp-src="webp/klintbarok.webp"
+                                data-original-src="picture/klintbarok.png" alt="克里姆特和巴洛克" data-caption="旁邊的是格雷格森"
+                                loading="lazy">
+                            <figcaption>克里姆特和巴洛克</figcaption>
+                        </figure>
 
-                            <figure class="image-item hidden spolier" data-outfit="other" data-slide="25">
-                                <img src="webp/siu_nicola_professor.webp" data-webp-src="webp/siu_nicola_professor.webp"
-                                    data-original-src="picture/siu_nicola_professor.png" alt="教授克"
-                                    data-caption="水仙 繪師：Siu Nicola" loading="lazy">
-                                <div class="outfit-tag">黑色斗篷男和本人</div>
-                                <figcaption>水仙（劇透注意）<br>繪師：Siu Nicola</figcaption>
-                            </figure>
-                        </div>
-                    </section>
+                        <figure class="image-item hidden spolier" data-outfit="other" data-slide="25">
+                            <img src="webp/siu_nicola_professor.webp" data-webp-src="webp/siu_nicola_professor.webp"
+                                data-original-src="picture/siu_nicola_professor.png" alt="教授克"
+                                data-caption="水仙 繪師：Siu Nicola" loading="lazy">
+                            <div class="outfit-tag">黑色斗篷男和本人</div>
+                            <figcaption>水仙（劇透注意）<br>繪師：Siu Nicola</figcaption>
+                        </figure>
+                    </div>
+                </section>
 
-                    <section class="character-section" data-character="barok">
-                        <h3>巴洛克．班吉克斯</h3>
-                        <hr style="margin: 1rem 0 1rem; background-color:#e9ecef;border: none;height: 1px;">
-                        <div class="character-description">
-                            <h4>角色特徵</h4>
-                            <ul>
-                                <li>克里姆特的弟弟，比他哥哥少10歲</li>
-                                <li>身高192，身材偏壯</li>
-                                <li>是文靜且關心別人的青年</li>
-                                <li>克里姆特死後額頭上才有X型疤痕，也是那時才開始成為不嘻嘻男</li>
-                            </ul>
-                        </div>
+                <section class="character-section" data-character="barok">
+                    <h3>巴洛克．班吉克斯</h3>
+                    <hr style="margin: 1rem 0 1rem; background-color:#e9ecef;border: none;height: 1px;">
+                    <div class="character-description">
+                        <h4>角色特徵</h4>
+                        <ul>
+                            <li>克里姆特的弟弟，比他哥哥少10歲</li>
+                            <li>身高192，身材偏壯</li>
+                            <li>是文靜且關心別人的青年</li>
+                            <li>克里姆特死後額頭上才有X型疤痕，也是那時才開始成為不嘻嘻男</li>
+                        </ul>
+                    </div>
 
-                        <div class="character-images" id="barok-images">
-                            <!-- 日常服 (預設顯示) -->
-                            <figure class="image-item" data-outfit="daily" data-slide="26">
-                                <img src="webp/barok_full_body.webp" data-webp-src="webp/barok_full_body.webp"
-                                    data-original-src="picture/barok_full_body.png" alt="正面全身" data-caption="正面全身"
-                                    loading="lazy">
-                                <figcaption>正面全身</figcaption>
-                            </figure>
+                    <div class="character-images" id="barok-images">
+                        <!-- 日常服 (預設顯示) -->
+                        <figure class="image-item" data-outfit="daily" data-slide="26">
+                            <img src="webp/barok_full_body.webp" data-webp-src="webp/barok_full_body.webp"
+                                data-original-src="picture/barok_full_body.png" alt="正面全身" data-caption="正面全身"
+                                loading="lazy">
+                            <figcaption>正面全身</figcaption>
+                        </figure>
 
-                            <figure class="image-item" data-outfit="daily" data-slide="27">
-                                <img src="webp/barok_full_body_cape.webp" data-webp-src="webp/barok_full_body_cape.webp"
-                                    data-original-src="picture/barok_full_body_cape.png" alt="正面全身（有披風）"
-                                    data-caption="正面全身（有披風）" loading="lazy">
-                                <figcaption>正面全身（有披風）</figcaption>
-                            </figure>
+                        <figure class="image-item" data-outfit="daily" data-slide="27">
+                            <img src="webp/barok_full_body_cape.webp" data-webp-src="webp/barok_full_body_cape.webp"
+                                data-original-src="picture/barok_full_body_cape.png" alt="正面全身（有披風）"
+                                data-caption="正面全身（有披風）" loading="lazy">
+                            <figcaption>正面全身（有披風）</figcaption>
+                        </figure>
 
-                            <figure class="image-item" data-outfit="daily" data-slide="28">
-                                <img src="webp/barok_back.webp" data-webp-src="webp/barok_back.webp"
-                                    data-original-src="picture/barok_back.png" alt="側面與背面全身" data-caption="側面與背面全身"
-                                    loading="lazy">
-                                <figcaption>側面與背面全身</figcaption>
-                            </figure>
+                        <figure class="image-item" data-outfit="daily" data-slide="28">
+                            <img src="webp/barok_back.webp" data-webp-src="webp/barok_back.webp"
+                                data-original-src="picture/barok_back.png" alt="側面與背面全身" data-caption="側面與背面全身"
+                                loading="lazy">
+                            <figcaption>側面與背面全身</figcaption>
+                        </figure>
 
-                            <figure class="image-item" data-outfit="daily" data-slide="29">
-                                <img src="webp/barok_young.webp" data-webp-src="webp/barok_young.webp"
-                                    data-original-src="picture/barok_young.jpg" alt="年輕巴洛克" data-caption="年輕巴洛克"
-                                    loading="lazy">
-                                <figcaption>年輕巴洛克</figcaption>
-                            </figure>
+                        <figure class="image-item" data-outfit="daily" data-slide="29">
+                            <img src="webp/barok_young.webp" data-webp-src="webp/barok_young.webp"
+                                data-original-src="picture/barok_young.jpg" alt="年輕巴洛克" data-caption="年輕巴洛克"
+                                loading="lazy">
+                            <figcaption>年輕巴洛克</figcaption>
+                        </figure>
 
-                            <figure class="image-item" data-outfit="daily" data-slide="30">
-                                <img src="webp/barok_kimono.webp" data-webp-src="webp/barok_kimono.webp"
-                                    data-original-src="picture/barok_kimono.jpg" alt="巴洛克穿和服" data-caption="巴洛克穿和服"
-                                    loading="lazy">
-                                <figcaption>巴洛克穿和服</figcaption>
-                            </figure>
+                        <figure class="image-item" data-outfit="daily" data-slide="30">
+                            <img src="webp/barok_kimono.webp" data-webp-src="webp/barok_kimono.webp"
+                                data-original-src="picture/barok_kimono.jpg" alt="巴洛克穿和服" data-caption="巴洛克穿和服"
+                                loading="lazy">
+                            <figcaption>巴洛克穿和服</figcaption>
+                        </figure>
 
-                            <figure class="image-item" data-outfit="daily" data-slide="31">
-                                <img src="webp/meowzieks.webp" data-webp-src="webp/meowzieks.webp"
-                                    data-original-src="picture/meowzieks.png" alt="貓貓吉祥物" data-caption="貓貓吉祥物"
-                                    loading="lazy">
-                                <figcaption>貓貓吉祥物</figcaption>
-                            </figure>
-                        </div>
-                    </section>
+                        <figure class="image-item" data-outfit="daily" data-slide="31">
+                            <img src="webp/meowzieks.webp" data-webp-src="webp/meowzieks.webp"
+                                data-original-src="picture/meowzieks.png" alt="貓貓吉祥物" data-caption="貓貓吉祥物"
+                                loading="lazy">
+                            <figcaption>貓貓吉祥物</figcaption>
+                        </figure>
+                    </div>
+                </section>
 
-                    <hr>
-                    <footer>
-                        <p>本網站由tong1743製作，內容與一切官方無關<br>想不到下面要放什麼所以放點隨機說話</p>
-                        <p class="random-word"></p>
-                    </footer>
-                    <!-- 返回頂部按鈕 -->
-                    <button id="backToTopBtn">
-                        <img src="picture/backtotop.gif" alt="回到頂端" />
-                    </button>
+                <hr>
+                <footer>
+                    <p>本網站由tong1743製作，內容與一切官方無關<br>想不到下面要放什麼所以放點隨機說話</p>
+                    <p class="random-word"></p>
+                </footer>
+                <!-- 返回頂部按鈕 -->
+                <button id="backToTopBtn">
+                    <img src="picture/backtotop.gif" alt="回到頂端" />
+                </button>
             </main>
 
 
@@ -1666,7 +1690,7 @@
                     <span class="close" onclick="closeModal()">&times;</span>
                     <div class="download-controls">
                         <button class="download-btn" id="downloadOriginal" title="下載原始尺寸圖片" disabled>
-                            <span class="download-icon"></span>
+                            <div class="download-icon"></div>
                         </button>
                     </div>
                 </div>
@@ -1863,7 +1887,7 @@
                             img.alt = imgElement.alt;
                             img.dataset.caption = imgElement.dataset.caption;
                             currentOriginalSrc = imgElement.getAttribute('data-original-src') // 儲存原始來源
-                            
+
 
                             // 等待圖片載入完成
                             img.onload = function () {
