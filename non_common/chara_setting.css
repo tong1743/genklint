@@ -274,6 +274,35 @@ table tr:hover {
     border-radius: 5px;
 }
 
+/*大頭照名字*/
+.headshot_container {
+    position: relative;
+    display: inline-block;
+}
+
+.headshot::before {
+    bottom: 5px;
+    content: "繪師：Shuja";
+    position: absolute;
+    color: white;
+    text-shadow: #181c22 1px 1px 2px;
+    padding: 2px 4px;
+}
+
+@media screen and (max-width: 768px) {
+    .headshot_container {
+        display: block;
+        text-align: center;
+    }
+
+    .headshot::before {
+        font-size: 12px;
+        left: 15%;
+        bottom: 2px;
+        padding: 1px 3px;
+    }
+}
+
 /*時間線表格樣式*/
 
 /* 第一欄作為標題 */
@@ -379,8 +408,6 @@ table tr:hover {
         word-break: break-all;
         line-height: 1.4;
     }
-
-
 
     .timeline_table {
         border: 0;
