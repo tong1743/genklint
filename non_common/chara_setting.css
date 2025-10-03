@@ -257,6 +257,7 @@ table tr:hover {
 /* 設定表格樣式 */
 
 .charadata_table td:first-child {
+    width: 10%;
     background-color: #1E6C93;
     color: white;
     font-weight: bold;
@@ -265,12 +266,14 @@ table tr:hover {
     border: 1px solid #ddd;
     position: sticky;
 }
+.charadata_table td:not(:first-child){
+    width: 45%;
+}
 
 .charadata_table img {
     max-width: 100%;
     height: auto;
     display: block;
-    margin: 0 auto 5px auto;
     border-radius: 5px;
 }
 
@@ -280,12 +283,18 @@ table tr:hover {
     display: inline-block;
 }
 
+
 .headshot::before {
     bottom: 5px;
     content: "繪師：Shuja";
     position: absolute;
     color: white;
-    text-shadow: #181c22 1px 1px 2px;
+    text-shadow: #181c22 1px 1px 2px,
+        #666 0.5px 0.5px 0,
+        #666 -0.5px -0.5px 0,
+        #666 0.5px -0.5px 0,
+        #666 -0.5px 0.5px 0;
+    ;
     padding: 2px 4px;
 }
 
@@ -339,6 +348,9 @@ table tr:hover {
         background-color: #fff;
         overflow: hidden;
         box-sizing: border-box;
+    }
+    .charadata_table td{
+        width:unset !important;
     }
 
     .charadata_table td:first-child {

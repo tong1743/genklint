@@ -350,7 +350,6 @@ body.dark-mode .outfit-nav button:hover:not(:disabled) {
     min-height: 400px;
     padding: 20px;
     box-sizing: border-box;
-    animation: zoomIn 0.3s ease;
 }
 
 /* 固定大小的圖片檢視區域 */
@@ -638,17 +637,7 @@ body.dark-mode .outfit-nav button:hover:not(:disabled) {
     }
 }
 
-@keyframes zoomIn {
-    from {
-        transform: scale(0.7);
-        opacity: 0;
-    }
 
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
 
 /* 響應式設計 */
 @media (max-width: 768px) {

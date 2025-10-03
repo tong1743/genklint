@@ -1,6 +1,3 @@
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms))
-}
 // 服裝配置
 const outfitConfig = {
     'genshin': {
@@ -95,7 +92,6 @@ async function openModal(slideNumber) {
     // 等待圖片載入完成
     slideIndex = slideNumber;
     showSlides(slideNumber);
-    await sleep(500);
     resetZoom();
     imageContainer.classList.remove('prepare')
 }
@@ -398,7 +394,6 @@ async function resetZoom() {
 
 
     if (img.naturalWidth < 100 && img.naturalHeight < 100) {
-        await sleep(100);
         resetZoom();
     } else {
 
@@ -475,7 +470,6 @@ function updateZoom() {
     }
 
 
-    sleep(1000);
 
     // 獲取視窗尺寸
     const viewportRect = viewport.getBoundingClientRect();
@@ -541,7 +535,6 @@ function updateZoom() {
             imageContainer.classList.remove('zoomed');
             isZoomed = false;
         }
-        sleep(1000);
         imageContainer.classList.remove('prepare');
 
     });
