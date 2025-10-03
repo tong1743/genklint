@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta property="og:title" content="玄克里設定" />
+    <meta property="og:description" content="NFSW" />
+    <meta property="og:image" content="picture/genshin_jumpscare.png" />
+    <link rel="icon" type="image/png" href="picture/icon.png">
+    <link rel="stylesheet" href="common/common_css.css">
+    <link rel="stylesheet" href="non_common/nfsw.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFSW相關內容</title>
+</head>
+
+<body>
+
+    <!-- 新導覽列按鈕與遮罩 -->
+    <nav id="sideNav" class="side-nav">
+        <button id="navMenuBtn" aria-label="開啟選單">
+            <span class="menu-icon">☰</span>
+            <span class="close-icon">×</span>
+        </button>
+        <!-- 側邊導覽列 -->
+        <a href="index.html">首頁</a>
+        <a href="chara_pic.html">圖片設定</a>
+        <a href="chara_setting.html">文字設定</a>
+        <a href="paro_setting.html">Paro設定</a>
+        <a href="guro.html" class="active">G向相關</a>
+        <a href="acknowledgement.html">標註/鳴謝</a>
+        <a href="report.html">問題回報</a>
+        <!-- 晚間模式切換按鈕 -->
+        <button id="toggleDarkModeBtn">☽ 晚間模式</button>
+    </nav>
+    <div class="side-nav-mask"></div>
+
+    <!-- 背景橫幅 -->
+    <div class="banner">
+        <div class="banner-content">
+            <h1>NFSW相關內容</h1>
+        </div>
+    </div>
+    <!-- 主要內容 -->
+    <div class="main-content" id="main-content">
+        <!--彈窗-->
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <h2>注意</h2>
+                <p>本頁面含有可能會讓人不適之內容，包括但不限於血腥、內臟、自殺、嘔吐等。<br>如果無法接受，可以直接離開。</p>
+                <button class="agree-btn" onclick="agreeToTerms()">讓我康康</button>
+                <button class="disagree-btn" onclick="disagreeToTerms()">我不要康</button>
+            </div>
+        </div>
+        <!--同意內容-->
+        <div id="agreed-content">
+            <div class="content-box">
+                <h2>切腹</h2>
+                <p>為了僅餘的榮譽，劃開腹部——以死亡換取寬恕。</p>
+                <div class="image-container seppuku">
+                    <div class="image-caption">
+                        <img src="webp/seppuku_genshin.webp">
+                    </div>
+                    <div class="image-caption">
+                        <img src="webp/seppuku_klint.webp">
+                    </div>
+                </div>
+                <div>
+                    <p>玄真：在決鬥中殺後克里姆特後的IF線。在獄中沒有答應沃爾特克斯的交易的玄真在死刑前選擇了切腹。<br>
+                        克里姆特：最終決鬥的IF線。玄真會為克里姆特介錯。</p>
+                </div>
+                <h2>嘔吐</h2>
+                <p></p>
+            </div>
+        </div>
+
+        <!--不同意內容-->
+        <div id="disagree-content">
+            <div class="masked-content">
+                那麼就來玩大逆轉裁判吧！<br>
+                你說的對，但《大逆轉裁判》是由卡普空自主研發的全新法庭戰鬥遊戲。
+                遊戲發生在一個被稱作「大英帝國」的幻想世界，在這裡，被沃爾特克斯選中的人將被授予「律師臂章」，導引異議之力‌​​​‌‌‌‌‌‌‌‌​​‌‌​‌‌‌​‌​。
+                你將扮演一位名為「成步堂龍之介」的神秘角色，在自由的旅行中邂逅性格各異、能力獨特的同伴們，和他們一起擊敗強敵，找回亞雙義的理想——同時，逐步發掘「亞雙義原神」的真相。
+            </div>
+
+            <div class="image-container genshin_active">
+                <div class="image-caption">
+                    <img src="webp/genshin_start.webp">
+                </div>
+            </div>
+            <button type="button" id="download-btn">
+                立即下載
+            </button>
+        </div>
+        <hr>
+        <footer>
+            <p>本網站由tong1743製作，內容與一切官方無關<br>想不到下面要放什麼所以放點隨機說話</p>
+            <p class="random-word"></p>
+        </footer>
+        <!-- 返回頂部按鈕 -->
+        <button id="backToTopBtn">
+            <img src="picture/backtotop.gif" alt="回到頂端" />
+        </button>
+    </div>
+
+
+    <script src="common/common_js.js"></script>
+
+    <script>
+
+        // 頁面載入時顯示彈窗
+
+        window.onload = function () {
+            try {
+                var saved = localStorage.getItem('agreed');
+                if (saved === '1') agreeToTerms();
+                else popUpWindow();
+            } catch (e) { }
+        }();
+
+        function popUpWindow() {
+            document.getElementById('popup').style.display = 'flex';
+            document.getElementById('disagree-content').style.display = 'none';
+            document.getElementById('agreed-content').style.display = 'none';
+        };
+
+        function agreeToTerms() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('disagree-content').style.display = 'none';
+            document.getElementById('agreed-content').style.display = 'block';
+            try {
+                localStorage.setItem('agreed', '1');
+            } catch (e) { }
+        }
+
+        function disagreeToTerms() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('agreed-content').style.display = 'none';
+            document.getElementById('disagree-content').style.display = 'block';
+        }
+
+        const download_btn = document.getElementById('download-btn')
+        download_btn.onclick = function () {
+            window.open("https://store.steampowered.com/app/1158850The_Great_Ace_Attorney_Chronicles/");
+        }
+
+
+    </script>
+</body>
+
+</html>

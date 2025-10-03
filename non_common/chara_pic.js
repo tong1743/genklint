@@ -2,11 +2,11 @@
 const outfitConfig = {
     'genshin': {
         outfits: ['daily', 'paro', 'other'],
-        names: ['日常服', 'PARO', '其他']
+        names: ['日常服', 'PARO及換裝', '其他']
     },
     'klint': {
         outfits: ['daily', 'paro', 'other'],
-        names: ['日常服', 'PARO', '其他']
+        names: ['日常服', 'PARO及換裝', '其他']
     },
 };
 
@@ -21,7 +21,7 @@ let slideIndex = 1;
 let zoomLevel = 1;
 let isZoomed = false;
 let isDragging = false;
-let startX, startY, translateX = 0,translateY = 0;
+let startX, startY, translateX = 0, translateY = 0;
 let currentImageElement = null; // 追蹤當前圖片元素
 let currentOriginalSrc = ''; // 追蹤原始圖片來源
 let downloadTooltipTimeout = null; // 提示計時器
@@ -123,6 +123,7 @@ function currentSlide(n) {
 // 切換幻燈片
 function plusSlides(n) {
     const totalSlides = document.querySelectorAll('.image-item[data-slide]').length;
+    var imageContainer = document.getElementById('modalImageContainer');
     slideIndex = slideIndex + n;
     if (slideIndex > totalSlides) {
         slideIndex = 1
@@ -443,8 +444,8 @@ async function resetZoom() {
                 updateZoom();
             });
         }
-        imageContainer.classList.remove('prepare');
     }
+    imageContainer.classList.remove('prepare');
 }
 
 

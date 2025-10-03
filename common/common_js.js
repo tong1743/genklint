@@ -7,11 +7,11 @@ function getRandomWord() {
         "我的同人女潔癖是只有玄真能殺死克里姆特",
         "我喜歡玄真的遺書中講他自己一生從沒有後悔二字",
         "亞雙義玄真的臉很常跳嚇到我和我朋友",
-        "玄真有8張官方圖然後有5.5張都在雙手抱胸",
         "玄真唯二是有在笑的圖是跟他兒子的合照",
         "我在排版時看到玄真的立繪就想笑",
         "玄真的英文名叫Genshin（真的）",
         "圖設定中有玄真衝擊",
+        "背頭男跟有兩根的背頭男落入大部分人的不舒適圈了",
     ];
     return wordList[Math.floor(Math.random() * wordList.length)];
 }
@@ -41,11 +41,11 @@ var darkModeBtn = document.getElementById('toggleDarkModeBtn');
 
 function setDarkMode(on) {
     document.body.classList.toggle('dark-mode', on);
-    darkModeBtn.textContent = on ? '☀  日間模式' : '☽ 晚間模式';
+    darkModeBtn.textContent = on ? '☀  日間模式' : '☽  晚間模式';
 }
 darkModeBtn.addEventListener('click', function () {
     var isDark = document.body.classList.toggle('dark-mode');
-    darkModeBtn.textContent = isDark ? '☀  日間模式' : '☽ 晚間模式';
+    darkModeBtn.textContent = isDark ? '☀  日間模式' : '☽  晚間模式';
     try {
         localStorage.setItem('darkMode', isDark ? '1' : '0');
     } catch (e) { }

@@ -263,7 +263,6 @@ body.dark-mode .outfit-nav button:hover:not(:disabled) {
     object-position: top;
     /* 從中心開始切掉 */
     border-radius: 10px;
-    transition: all 0.3s ease;
     cursor: pointer;
     border: 3px solid transparent;
     display: block;
@@ -379,7 +378,6 @@ body.dark-mode .outfit-nav button:hover:not(:disabled) {
     width: auto;
     height: auto;
     cursor: grab;
-    transition: transform 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
