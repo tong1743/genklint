@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta property="og:title" content="玄克里設定" />
-    <meta property="og:description" content="問題回報" />
+    <meta property="og:description" content="水仙設定" />
     <meta property="og:image" content="picture/genshin_jumpscare.png" />
     <link rel="icon" type="image/png" href="picture/icon.png">
     <link rel="stylesheet" href="common/common_css.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>問題回報</title>
+    <title>水仙設定</title>
     <style>
         .banner {
             background-image: url(webp/banner_professor.webp);
@@ -83,7 +83,7 @@
             cursor: grab;
         }
 
-        #genshinJumpscare:active{
+        #genshinJumpscare:active {
             cursor: grabbing;
         }
 
@@ -108,10 +108,12 @@
             font-size: 24px;
         }
 
-        #closeGenshin {
+        .closeGenshin,
+        #activeTouch {
             position: relative;
             color: #f1f1f1;
             font-size: 20px;
+            margin: 5px;
             padding: 2px 4px;
             cursor: pointer;
             background: rgba(0, 0, 0, 0.6);
@@ -122,6 +124,21 @@
             transition: all 0.3s ease;
             z-index: 1001;
             border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .caption.mobile {
+            display: none;
+        }
+
+
+        @media (max-width:768px) {
+            .caption.mobile {
+                display: block !important;
+            }
+
+            .caption.non-mobile {
+                display: none !important;
+            }
         }
     </style>
 </head>
@@ -166,11 +183,17 @@
                 </div>
 
             </div>
-            <div class="caption">
+            <div class="caption non-mobile">
                 <h2>R18相關設定</h2>
                 <p><span class="mention">本設定含有非自願性交及逆強姦等可能使人不適之內容。如果無法接受，可以直接離開。</span><br>
                     ⇦可以拖曳移動旁邊的玄真<br>⇩或是按下面的按鈕讓玄真離開</p>
-                <button id="closeGenshin">讓玄真先生離開</button>
+                <button id="closeGenshin" class="closeGenshin">讓玄真先生離開</button>
+            </div>
+            <div class="caption mobile">
+                <p><span class="mention">本設定含有非自願性交及逆強姦等可能使人不適之內容。如果無法接受，可以直接離開。</span><br>
+                    可以在按下按鈕後拖曳移動旁邊的玄真<br>或是讓玄真離開</p>
+                <button id="activeTouch">開始拖曳</button>
+                <button id="closeGenshinMobile" class="closeGenshin">讓玄真先生離開</button>
             </div>
 
         </div>
@@ -197,6 +220,8 @@
         let initialY = 0;
         let xOffset = 0;
         let yOffset = 0;
+        let canTouch = false;
+        const activeTouchBtn = document.getElementById('activeTouch');
 
 
         // 滑鼠事件
@@ -204,10 +229,26 @@
         document.addEventListener('mousemove', drag);
         document.addEventListener('mouseup', stopDragging);
 
+        activeTouchBtn.addEventListener('click', activeTouch)
         // 觸控事件
-        img.addEventListener('touchstart', startDragging);
-        document.addEventListener('touchmove', drag);
-        document.addEventListener('touchend', stopDragging);
+        function activeTouch() {
+            if (canTouch) {
+                img.removeEventListener('touchstart', startDragging);
+                document.removeEventListener('touchmove', drag);
+                document.removeEventListener('touchend', stopDragging);
+                canTouch = false;
+                activeTouchBtn.textContent = '開始拖曳';
+            }
+            else {
+                img.addEventListener('touchstart', startDragging);
+                document.addEventListener('touchmove', drag);
+                document.addEventListener('touchend', stopDragging);
+                canTouch = true;
+                activeTouchBtn.textContent = '結束拖曳';
+            }
+
+        }
+
 
         function startDragging(e) {
             e.preventDefault(); // 防止預設行為（如圖片拖放或頁面滾動）
@@ -260,6 +301,9 @@
 
         const closeGenshinBtn = document.getElementById('closeGenshin')
         closeGenshinBtn.addEventListener('click', closeGenshin);
+
+        const closeGenshinBtnMobile = document.getElementById('closeGenshinMobile')
+        closeGenshinBtnMobile.addEventListener('click', closeGenshin);
 
         function closeGenshin() {
             if (img.classList.contains('close')) {
