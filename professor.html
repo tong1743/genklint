@@ -228,9 +228,14 @@
         img.addEventListener('mousedown', startDragging);
         document.addEventListener('mousemove', drag);
         document.addEventListener('mouseup', stopDragging);
-
-        activeTouchBtn.addEventListener('click', activeTouch)
+        activeTouchBtn.addEventListener('click', activeTouch);
         // 觸控事件
+        if (screen && screen.width > 768) {
+            img.addEventListener('touchstart', startDragging);
+            document.addEventListener('touchmove', drag);
+            document.addEventListener('touchend', stopDragging);
+        }
+        
         function activeTouch() {
             if (canTouch) {
                 img.removeEventListener('touchstart', startDragging);
