@@ -231,7 +231,7 @@
         document.addEventListener('mouseup', stopDragging);
         activeTouchBtn.addEventListener('click', activeTouch);
         // 觸控事件
-        if (screen && screen.width > 768) {
+        if (window.innerWidth > 768) {
             img.addEventListener('touchstart', startDragging);
             document.addEventListener('touchmove', drag);
             document.addEventListener('touchend', stopDragging);
