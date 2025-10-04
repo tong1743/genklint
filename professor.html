@@ -190,6 +190,7 @@
                 <button id="closeGenshin" class="closeGenshin">讓玄真先生離開</button>
             </div>
             <div class="caption mobile">
+                <h2>R18相關設定</h2>
                 <p><span class="mention">本設定含有非自願性交及逆強姦等可能使人不適之內容。如果無法接受，可以直接離開。</span><br>
                     可以在按下按鈕後拖曳移動旁邊的玄真<br>或是讓玄真離開</p>
                 <button id="activeTouch">開始拖曳</button>
@@ -235,7 +236,7 @@
             document.addEventListener('touchmove', drag);
             document.addEventListener('touchend', stopDragging);
         }
-        
+
         function activeTouch() {
             if (canTouch) {
                 img.removeEventListener('touchstart', startDragging);
