@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta property="og:title" content="玄克里設定" />
+    <meta property="og:description" content="問題回報" />
+    <meta property="og:image" content="picture/genshin_jumpscare.png" />
+    <link rel="icon" type="image/png" href="picture/icon.png">
+    <link rel="stylesheet" href="common/common_css.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>問題回報</title>
+    <style>
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .image-container {
+            position: relative;
+        }
+
+        .image-container:before {
+            content: "";
+            background-color: rgba(0, 0, 0, 1);
+            filter: blur(30px);
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        .professor-klint.image-caption::before {
+            content: "繪師：飯";
+            z-index: 2;
+        }
+
+        .image-caption {
+            position: relative;
+            display: block;
+        }
+
+        .image-caption::before {
+            bottom: 5px;
+            position: absolute;
+            color: white;
+            text-shadow: #181c22 1px 1px 2px,
+                #666 0.5px 0.5px 0,
+                #666 -0.5px -0.5px 0,
+                #666 0.5px -0.5px 0,
+                #666 -0.5px 0.5px 0;
+            padding: 2px 4px;
+        }
+
+        #popUpWindow {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            animation: fadeIn 0.3s ease;
+            overflow: auto;
+            padding: 0;
+            margin: 0;
+        }
+
+        #popUpImageContainer {
+            position: relative;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* 固定容器大小，不隨內容變化 */
+            width: 90vw;
+            height: 90vh;
+            max-width: 1200px;
+            max-height: 800px;
+            min-height: 400px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #popUpImageContainer img {
+            max-height: 100%;
+        }
+
+        #genshinJumpscare {
+            position: absolute;
+        }
+
+        .popup-content {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-height: 100%;
+            width: auto;
+            aspect-ratio: 125 / 124;
+
+        }
+
+
+
+        /* 讓選單按鈕和回到頂端按鈕可被JS隱藏 */
+        #navMenuBtn.hidden,
+        #backToTopBtn.hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 新導覽列按鈕與遮罩 -->
+    <nav id="sideNav" class="side-nav">
+        <button id="navMenuBtn" aria-label="開啟選單">
+            <span class="menu-icon">☰</span>
+            <span class="close-icon">×</span>
+        </button>
+        <!-- 側邊導覽列 -->
+        <a href="index.html">首頁</a>
+        <a href="chara_pic.html">圖片設定</a>
+        <a href="chara_setting.html">文字設定</a>
+        <a href="paro_setting.html">Paro設定</a>
+        <a href="nfsw.html">NFSW相關</a>
+        <a href="professor.html">水仙（劇透注意）</a>
+        <a href="acknowledgement.html">標註/鳴謝</a>
+        <a href="report.html">問題回報</a>
+        <!-- 晚間模式切換按鈕 -->
+        <button id="toggleDarkModeBtn">☽ 晚間模式</button>
+    </nav>
+    <div class="side-nav-mask"></div>
+
+    <!-- 背景橫幅 -->
+    <div class="banner">
+        <div class="banner-content">
+            <h1>問題回報</h1>
+        </div>
+    </div>
+
+    <!-- 主要內容 -->
+    <div class="main-content">
+        <div class="image-container">
+            <div class="image-caption professor-klint">
+                <img src="webp/professor_klint.webp">
+            </div>
+        </div>
+
+
+        <hr>
+        <footer>
+            <p>本網站由tong1743製作，內容與一切官方無關<br>想不到下面要放什麼所以放點隨機說話</p>
+            <p class="random-word"></p>
+        </footer>
+        <!-- 返回頂部按鈕 -->
+        <button id="backToTopBtn">
+            <img src="picture/backtotop.gif" alt="回到頂端" />
+        </button>
+    </div>
+
+    <div id="popUpWindow">
+        <div id="popUpImageContainer">
+            <div id="closeBtn">
+
+            </div>
+            <div class="popup-content">
+                <div class="warpper">
+                <img id="popUpImage" alt="圖片">
+                <img id="genshinJumpscare" src="webp/genshin_jumpscare.webp">
+            </div></div>
+        </div>
+
+    </div>
+
+    <script src="common/common_js.js"></script>
+    <script>
+        function imageClickEvents() {
+            const clickableElements = document.querySelectorAll('.image-container');
+            clickableElements.forEach(Element => {
+                Element.removeEventListener('click', handleImageClick);
+                Element.addEventListener('click', handleImageClick);
+            })
+        }
+
+        function handleImageClick() {
+            const imageItem = event.currentTarget.closest('.image-container');
+            var imageContent = imageItem.querySelector('img')
+
+            if (imageContent) {
+                openPopUp(imageContent);
+            }
+        }
+
+        function openPopUp(img) {
+            document.getElementById('popUpWindow').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            // 隱藏 navMenuBtn
+            var navMenuBtn = document.getElementById('navMenuBtn');
+            if (navMenuBtn) navMenuBtn.classList.add('hidden');
+            // 隱藏 backToTopBtn
+            var backToTopBtn = document.getElementById('backToTopBtn');
+            if (backToTopBtn) backToTopBtn.classList.add('hidden');
+
+            const image = document.getElementById('popUpImage');
+            image.src = img.src;
+        }
+
+        function closePopUp() {
+            document.getElementById('popUpWindow').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            // 顯示 navMenuBtn
+            var navMenuBtn = document.getElementById('navMenuBtn');
+            if (navMenuBtn) navMenuBtn.classList.remove('hidden');
+            // 顯示 backToTopBtn
+            var backToTopBtn = document.getElementById('backToTopBtn');
+            if (backToTopBtn) backToTopBtn.classList.remove('hidden');
+        }
+
+        // 鍵盤事件處理
+        document.addEventListener('keydown', function (event) {
+            if (document.getElementById('popUpWindow').style.display === 'block') {
+                switch (event.key) {
+                    case 'Escape':
+                        closePopUp();
+                        break;
+                }
+            }
+        });
+
+        const img = document.getElementById('genshinJumpscare');
+        let isDragging = false;
+        let initialX;
+        let initialY;
+        let xOffset = 0;
+        let yOffset = 0;
+
+        // 儲存圖片的初始位置
+        const rect = img.getBoundingClientRect();
+        initialX = rect.left;
+        initialY = rect.top;
+
+        // 滑鼠事件
+        img.addEventListener('mousedown', startDragging);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', stopDragging);
+
+        // 觸控事件
+        img.addEventListener('touchstart', startDragging);
+        document.addEventListener('touchmove', drag);
+        document.addEventListener('touchend', stopDragging);
+
+        function startDragging(e) {
+            e.preventDefault(); // 防止預設行為（如圖片拖放或頁面滾動）
+            let clientX, clientY;
+
+            // 判斷是滑鼠還是觸控事件
+            if (e.type === 'touchstart') {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+
+            xOffset = clientX - rect.left;
+            yOffset = clientY - rect.top;
+            isDragging = true;
+            img.style.transition = 'none'; // 拖曳時移除過渡效果
+        }
+
+        function drag(e) {
+            if (isDragging) {
+                e.preventDefault(); // 防止觸控時頁面滾動
+                let clientX, clientY;
+
+                // 判斷是滑鼠還是觸控事件
+                if (e.type === 'touchmove') {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                } else {
+                    clientX = e.clientX;
+                    clientY = e.clientY;
+                }
+
+                const newX = clientX - xOffset;
+                const newY = clientY - yOffset;
+                img.style.left = newX + 'px';
+                img.style.top = newY + 'px';
+            }
+        }
+
+        function stopDragging() {
+            if (isDragging) {
+                isDragging = false;
+                img.style.transition = 'all 1s ease-out'; // 恢復過渡效果
+                img.style.left = initialX + 'px'; // 回到初始位置
+                img.style.top = initialY + 'px';
+            }
+        }
+
+        // 初始化圖片位置
+        img.style.left = initialX + 'px';
+        img.style.top = initialY + 'px';
+
+
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function () {
+            // 綁定點擊事件
+            imageClickEvents();
+        });
+
+    </script>
+</body>
+
+</html>
