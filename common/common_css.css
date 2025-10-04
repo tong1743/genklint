@@ -270,7 +270,7 @@
 
  /* 背景橫幅樣式 */
  .banner {
-     background-image: url('../picture/banner.png');
+     background-image: url('../webp/banner.webp');
      background-size: cover;
      background-repeat: no-repeat;
      background-position: center;
