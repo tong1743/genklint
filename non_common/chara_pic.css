@@ -260,7 +260,7 @@ body.dark-mode .outfit-nav button:hover:not(:disabled) {
     object-fit: cover;
     /* 填滿容器，切掉超出部分 */
     object-position: top;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, filter 0.3s ease;
     /* 從中心開始切掉 */
     border-radius: 10px;
     cursor: pointer;

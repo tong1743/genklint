@@ -337,10 +337,12 @@
      color: black;
      background-color: black;
      transition: color 0.3s;
+     cursor: pointer;
  }
 
- .spoiler_content:hover {
+ .spoiler_content.clicked {
      color: white;
+     cursor: unset;
  }
 
  .spoiler_image img {
@@ -348,7 +350,7 @@
  }
 
  .spoiler_image:hover img {
-     filter: none;
+     filter: blur(0);
  }
 
  /*頁腳*/

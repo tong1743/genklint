@@ -81,3 +81,12 @@ sideNav.querySelectorAll('a').forEach(function (link) {
         setSideNavOpen(false);
     });
 });
+
+//點擊顯示劇透內容
+var spoilerContent = document.querySelectorAll('.spoiler_content');
+spoilerContent.forEach(spoiler_content => {
+    spoiler_content.addEventListener("click", function () {
+        spoiler_content.classList.add('clicked');
+    });
+});
+

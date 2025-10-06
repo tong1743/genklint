@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta property="og:title" content="玄克里設定" />
-    <meta property="og:description" content="問題回報" />
+    <meta property="og:description" content="測試" />
     <meta property="og:image" content="picture/genshin_jumpscare.png" />
     <link rel="icon" type="image/png" href="picture/icon.png">
     <link rel="stylesheet" href="common/common_css.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>問題回報</title>
+    <title>測試</title>
     <style>
         /* 黑暗模式配色 */
         body.dark-mode .character-section {
@@ -508,9 +508,8 @@
         }
 
         .modal-heading {
-            left:0;
+            left: 0;
             position: relative;
-            padding: 15px 20px;
             font-size: 48px;
             font-weight: 1000;
             max-width: 90%;
@@ -520,23 +519,27 @@
             animation: appear 1s linear;
         }
 
-        @keyframes appear{
-            0%{
+        @keyframes appear {
+            0% {
                 opacity: 0;
             }
 
-            100%{
+            100% {
                 left: 0;
                 opacity: 1;
             }
         }
 
-        .modal-heading::before{
+        .modal-heading::before {
             content: attr(headingContent);
             position: absolute;
             color: transparent;
             -webkit-text-stroke: 6px #fff;
             z-index: -1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
         }
 
 
@@ -553,15 +556,22 @@
             z-index: 1001;
             white-space: pre-wrap;
             perspective: 1000px;
-            animation: rotate 1s linear;
+            animation: rotate 3s linear;
+            overflow: hidden;
         }
 
-        @keyframes rotate{
-            0%{
-                opacity: 0;
+        #modalImageContainer img{
+            animation: moveRight 1s ;
+            position: relative;
+        }
+
+        @keyframes rotate {
+            0% {
+                max-height:0;
             }
-            100%{
-                opacity: 1;
+
+            100% {
+                max-height:1200px;
             }
         }
 
@@ -574,6 +584,17 @@
 
             to {
                 opacity: 1;
+            }
+        }
+
+        @keyframes moveRight{
+            from{
+                opacity: 0;
+                right: -100px;
+            }
+            to{
+                opacity: 1;
+                right: 0;
             }
         }
 
@@ -733,7 +754,7 @@
     <!-- 背景橫幅 -->
     <div class="banner">
         <div class="banner-content">
-            <h1>問題回報</h1>
+            <h1>測試</h1>
         </div>
     </div>
 
@@ -746,11 +767,6 @@
                         data-heading="亞雙義玄真" data-caption="來自日本的刑警&#010;作為留學生來到大英帝國&#010;身上所佩服的武士刀名為「狩魔」"
                         loading="lazy">
                     <figcaption>正面全身立繪</figcaption>
-                </figure>
-                <figure class="image-item" data-outfit="daily" data-slide="2">
-                    <img src="webp/GenshinArtbook.webp" data-webp-src="webp/GenshinArtbook.webp"
-                        data-original-src="picture/GenshinArtbook.png" alt="正面+側面" data-caption="正面+側面" loading="lazy">
-                    <figcaption>正面+側面</figcaption>
                 </figure>
         </section>
     </div>
@@ -770,9 +786,7 @@
 
 
 
-        <button class="modal-prev" onclick="plusSlides(-1)">
-            <div class="modal-icon"></div>
-        </button>
+
 
 
 
@@ -798,9 +812,7 @@
                 </div>
             </div>
 
-            <button class="modal-next" onclick="plusSlides(1)">
-                <div class="modal-icon"></div>
-            </button>
+
 
 
 
@@ -848,18 +860,7 @@
                 switchImages(characterId, config.outfits[newIndex]);
             }
 
-            // 更新服裝按鈕狀態
-            function updateOutfitButtons(characterId) {
-                const config = outfitConfig[characterId];
-                const currentIndex = currentOutfits[characterId];
 
-                const prevBtn = document.querySelector(`[data-character="${characterId}"] .outfit-prev`);
-                const nextBtn = document.querySelector(`[data-character="${characterId}"] .outfit-next`);
-
-                // 所有按鈕都可用（循環切換）
-                prevBtn.disabled = false;
-                nextBtn.disabled = false;
-            }
 
             // 切換圖片顯示
             function switchImages(characterId, outfitType) {
@@ -939,8 +940,7 @@
                 const headingText = document.getElementById('heading');
                 const captionText = document.getElementById('caption');
                 const imageContainer = document.getElementById('modalImageContainer');
-                const prevBtn = document.querySelector('.modal-prev');
-                const nextBtn = document.querySelector('.modal-next');
+
 
                 // 找到對應的圖片元素
                 const allImageItems = document.querySelectorAll('.image-item[data-slide]');
@@ -957,11 +957,11 @@
                         const img = document.createElement('img');
                         img.src = imgElement.src;
                         img.alt = imgElement.alt;
-                        
+
 
                         imageContainer.appendChild(img);
                         headingText.textContent = imgElement.dataset.heading || imgElement.alt;
-                        headingText.setAttribute('headingContent',imgElement.dataset.heading)
+                        headingText.setAttribute('headingContent', imgElement.dataset.heading)
                         captionText.textContent = imgElement.dataset.caption || imgElement.alt;
 
 
@@ -971,9 +971,6 @@
 
                     }
 
-                    // 更新按鈕狀態
-                    prevBtn.disabled = n === 1;
-                    nextBtn.disabled = n === allImageItems.length;
 
 
                     translateX = 0;
