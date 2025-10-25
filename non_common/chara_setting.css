@@ -145,6 +145,7 @@ body.dark-mode .collapse-content {
     text-align: left;
     cursor: pointer;
     display: flex;
+    position: relative;
     align-items: center;
     transition: background 0.2s;
 }
@@ -163,6 +164,7 @@ body.dark-mode .collapse-content {
 .collapse-box.open .collapse-header .arrow {
     transform: rotate(90deg);
 }
+
 
 .collapse-content {
     max-height: 0;
@@ -196,7 +198,7 @@ body.dark-mode .collapse-content {
 }
 
 .content-box img {
-    max-width: 70%;
+    max-width: 60%;
     height: auto;
     border-radius: 5px;
 
@@ -224,6 +226,29 @@ summary::after {
 
 details[open] summary::after {
     content: "▲";
+}
+
+.collapse-box.others .content-box {
+    text-indent: 0;
+    text-align: center;
+}
+
+.collapse-box.others .will-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+
+.collapse-box.others .content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.collapse-box.others .will-container .content-container {
+    width: 40%;
 }
 
 /*表格共通樣式*/
@@ -266,7 +291,8 @@ table tr:hover {
     border: 1px solid #ddd;
     position: sticky;
 }
-.charadata_table td:not(:first-child){
+
+.charadata_table td:not(:first-child) {
     width: 45%;
 }
 
@@ -349,8 +375,9 @@ table tr:hover {
         overflow: hidden;
         box-sizing: border-box;
     }
-    .charadata_table td{
-        width:unset !important;
+
+    .charadata_table td {
+        width: unset !important;
     }
 
     .charadata_table td:first-child {

@@ -406,9 +406,13 @@ body.dark-mode .outfit-nav button:hover:not(:disabled) {
 }
 
 .modal-image-container.zoomed img {
-    cursor: move;
+    cursor: grab;
     max-width: none;
     max-height: none;
+}
+
+.modal-image-container.zoomed img:active {
+    cursor: grabbing;
 }
 
 /* 下載鈕樣式 */
