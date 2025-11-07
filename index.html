@@ -11,9 +11,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>首頁</title>
     <style>
-        .banner{
+        .banner {
             height: auto;
             max-height: 100vh;
+        }
+
+        .iframe-container {
+            display: flex;
+            justify-content: center;
         }
     </style>
 </head>
@@ -66,15 +71,23 @@
             <li>請勿讓路人角色占劇情比例過重</li>
             <li>請勿使用中國用語（泛指視頻等只會在中國使用的用語），以及請使用正確的標點符號</li>
             <li>請勿照抄設定換句話</li>
-            <hr>
-            <footer>
-                <p>本網站由tong1743製作，內容與一切官方無關<br>想不到下面要放什麼所以放點隨機說話</p>
-                <p class="random-word"></p>
-            </footer>
-            <!-- 返回頂部按鈕 -->
-            <button id="backToTopBtn">
-                <img src="picture/backtotop.gif" alt="回到頂端" />
-            </button>
+        </ul>
+
+        <hr>
+        <div class="iframe-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/N-53tXs6ovA?si=IfZ75OjB96Oc8O82"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <footer>
+            <p>本網站由tong1743製作，內容與一切官方無關<br>想不到下面要放什麼所以放點隨機說話</p>
+            <p class="random-word"></p>
+        </footer>
+        <!-- 返回頂部按鈕 -->
+        <button id="backToTopBtn">
+            <img src="picture/backtotop.gif" alt="回到頂端" />
+        </button>
     </div>
     <script src="common/common_js.js"></script>
 </body>
