@@ -14,15 +14,21 @@
      color: #d3d7de;
  }
 
- body.dark-mode .side-nav a.active {
-     background: #7ecfff;
-     color: #232834;
+  /* 暗色模式下的選單項目樣式 */
+ body.dark-mode .side-nav a.active,
+ body.dark-mode .side-nav .submenu-header.active,
+ body.dark-mode .side-nav .submenu-header.active .submenu-toggle {
+     background: #2e6b97;
+     color:#fff;
      font-weight: bold;
  }
 
- body.dark-mode .side-nav a:hover {
-     background: #2e6b97;
-     color: #fff;
+ body.dark-mode .side-nav a:hover,
+ body.dark-mode .side-nav .submenu-header:hover,
+ body.dark-mode .side-nav .submenu-header:hover .submenu-toggle {
+     background: #7ecfff;
+     color:  #232834;
+     font-weight: bold;
  }
 
  body.dark-mode #closeNavBtn {
@@ -34,6 +40,10 @@
      background: #181c22;
      color: #d3d7de;
  }
+
+body.dark-mode a{
+    color: #84B1ED;
+}
 
  body.dark-mode h1,
  body.dark-mode h2,
@@ -92,18 +102,24 @@
  .side-nav a {
      color: #fff;
      padding: 18px 32px;
+     width: 100%;
      text-decoration: none;
      font-size: 1.2em;
      transition: background 0.2s;
  }
 
- .side-nav a.active {
+ /* 統一選單項目的常態與互動樣式 */
+ .side-nav a.active,
+ .side-nav .submenu-header.active,
+ .side-nav .submenu-header.active .submenu-toggle {
      background: #7ecfff;
      color: #2e6b97;
      font-weight: bold;
  }
 
- .side-nav a:hover {
+ .side-nav a:hover,
+ .side-nav .submenu-header:hover,
+ .side-nav .submenu-header:hover .submenu-toggle {
      background: #3a4a5a;
      color: #fff;
  }
