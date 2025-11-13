@@ -67,16 +67,6 @@ function resetPopupPosition(e) {
     popup.style.removeProperty('--popup-top');
 }
 document.querySelectorAll('.popup').forEach(function (el) {
-    // 將原本的內容移到 data-popup-content
-    if (el.classList.contains('popup1')) {
-        el.setAttribute('data-popup-content', '指的是自己的老婆和女兒。\n當時他的老婆即將分娩，他托付玄真找人接生與照顧自己的女兒，並且不希望他人知道她的身份，以免被自己連累。\n最後女兒被福爾摩斯收養，取名為愛麗絲．華生。');
-    } else if (el.classList.contains('popup2')) {
-        el.setAttribute('data-popup-content', '除了思考的意思，也指需要轉動刀的頭腦（指刀柄的頂端），該處藏有克里姆特的遺書。');
-    } else if (el.classList.contains('popup3')) {
-        el.setAttribute('data-popup-content', '這句的英譯文本為「願你在每次吞嚥時，都能感受到野獸的尖牙扺在你的喉嚨上」。\n個人覺得更符合克里姆特。');
-    } else if (el.classList.contains('popup4')) {
-        el.setAttribute('data-popup-content', '這句的英譯文本增加了一句「那是一份我不值得擁有的榮譽」。');
-    }
     el.addEventListener('mouseenter', adjustPopupPosition);
     el.addEventListener('mouseleave', resetPopupPosition);
     el.addEventListener('touchstart', adjustPopupPosition);
