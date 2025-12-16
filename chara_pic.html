@@ -9,6 +9,78 @@
     <link rel="icon" type="image/png" href="picture/icon.png">
     <link rel="stylesheet" href="common/common_css.css">
     <link rel="stylesheet" href="non_common/chara_pic.css">
+    <style>
+        /* 二階選單樣式（小段內嵌樣式，輕量） */
+        .side-nav .submenu-group {
+            margin: 6px 0;
+        }
+
+        /* header 容器：包含連結與 caret，以便 caret 成為相鄰元素 */
+        .side-nav .submenu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .side-nav .submenu-toggle {
+            display: block;
+        }
+
+        /* 使用 max-height + opacity 做平滑展開動畫；避免使用 display:none/block 因為無法過渡 */
+        .side-nav .submenu {
+            display: block; /* 保留在文件流中，使用 max-height 控制可見性 */
+            padding-left: 0.75rem;
+            margin-top: 4px;
+            overflow: hidden;
+            max-height: 0; /* 折疊狀態 */
+            opacity: 0;
+            transform: translateY(-6px);
+            transition: max-height 1560ms , opacity 200ms ease, transform 200ms ease;
+        }
+
+        .side-nav .submenu a {
+            display: block;
+            padding: 6px 10px;
+            font-size: 0.95rem;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .side-nav .submenu-group.open > .submenu {
+            /* 展開狀態：給足夠的 max-height 以容納內部連結（若項目數很多，可調大） */
+            max-height: 600px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .side-nav .submenu-header .caret {
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            padding: 18px 32px;
+            text-decoration: none;
+            font-size: 1.2em;
+            height: 100%;
+        }
+
+        .side-nav .caret-arrow {
+            background: white;
+            width: 1.2em;
+            height: 20px;
+            mask: url(../icon/left-arrow.svg) no-repeat center center;
+            -webkit-mask: url(../icon/left-arrow.svg) no-repeat center center;
+            mask-size: contain;
+            -webkit-mask-size: contain;
+            position: relative;
+            transform: rotate(-90deg);
+            transition: transform .1s linear;
+        }
+        .side-nav .caret.open .caret-arrow {
+            transform: rotate(90deg);
+        }
+
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>角色圖片設定</title>
 </head>
@@ -122,14 +194,14 @@
 
                         <figure class="image-item hidden" data-outfit="paro" data-slide="8">
                             <img src="webp/snake.webp" data-webp-src="webp/snake.webp"
-                                data-original-src="picture/snake.png" alt="蛇" data-caption="小蛇 繪師：春日喫茶" loading="lazy">
-                            <figcaption>小蛇<br>繪師：春日喫茶</figcaption>
+                                data-original-src="picture/snake.jpg" alt="蛇" data-caption="小蛇 繪師：Gallus" loading="lazy">
+                            <figcaption>小蛇<br>繪師：Gallus</figcaption>
                         </figure>
 
                         <figure class="image-item hidden" data-outfit="paro" data-slide="9">
                             <img src="webp/genshin_dog.webp" data-webp-src="webp/genshin_dog.webp"
-                                data-original-src="picture/genshin_dog.png" alt="甲斐犬" data-caption="甲斐犬 繪師：@Tsuki_shigure"
-                                loading="lazy">
+                                data-original-src="picture/genshin_dog.png" alt="甲斐犬"
+                                data-caption="甲斐犬 繪師：@Tsuki_shigure" loading="lazy">
                             <figcaption>甲斐犬<br>繪師：@Tsuki_shigure</figcaption>
                         </figure>
 
@@ -242,9 +314,9 @@
                         </figure>
 
                         <figure class="image-item hidden" data-outfit="paro" data-slide="21">
-                            <img src="webp/bat.webp" data-webp-src="webp/bat.webp" data-original-src="picture/bat.png"
-                                alt="蝙蝠" data-caption="蝙蝠 繪師：春日喫茶" loading="lazy">
-                            <figcaption>蝙蝠<br>繪師：春日喫茶</figcaption>
+                            <img src="webp/bat.webp" data-webp-src="webp/bat.webp" data-original-src="picture/bat.jpg"
+                                alt="蝙蝠" data-caption="蝙蝠 繪師：Gallus" loading="lazy">
+                            <figcaption>蝙蝠<br>繪師：Gallus</figcaption>
                         </figure>
 
                         <figure class="image-item hidden" data-outfit="paro" data-slide="22">
@@ -284,9 +356,9 @@
                         </figure>
 
                         <figure class="image-item hidden spoiler_image" data-outfit="other" data-slide="27">
-                            <img src="webp/siu_nicola_professor.webp" data-webp-src="webp/siu_nicola_professor.webp"
-                                data-original-src="picture/siu_nicola_professor.png" alt="教授克"
-                                data-caption="水仙 繪師：Siu Nicola" loading="lazy">
+                            <img src="webp/professor_k.webp" data-webp-src="webp/siu_nicola_professor.webp"
+                                data-original-src="picture/professor_k.png" alt="教授克"
+                                data-caption="水仙 繪師：小雪" loading="lazy">
                             <div class="outfit-tag">黑色斗篷男和本人</div>
                             <figcaption>水仙（劇透注意）<br>繪師：Siu Nicola</figcaption>
                         </figure>
@@ -299,7 +371,7 @@
                     <div class="character-description">
                         <h4>角色特徵</h4>
                         <ul>
-                            <li>克里姆特的弟弟，比他哥哥少10歲</li>
+                            <li>克里姆特的弟弟，比他哥哥小10歲</li>
                             <li>身高192，身材偏壯</li>
                             <li>是文靜且關心別人的青年</li>
                             <li>克里姆特死後額頭上才有X型疤痕，也是那時才開始成為不嘻嘻男</li>
@@ -413,8 +485,87 @@
             <div id="downloadTooltip" class="download-tooltip"></div>
         </div>
 
-        <script src="common/common_js.js" ></script>
+        <script src="common/common_js.js"></script>
         <script src="non_common/chara_pic.js" defer></script>
+        <script>
+            // 小型輔助：為側邊導覽的 submenu-toggle 加上點擊行為
+            document.addEventListener('DOMContentLoaded', function () {
+                // 只在 caret（小箭頭）上綁定展開/收合行為，點擊主連結將保留導覽功能
+                // helper: 精確控制 submenu 的 max-height 過渡
+                function setSubmenuOpen(group, open) {
+                    const submenu = group.querySelector('.submenu');
+                    const caret = group.querySelector('.caret');
+                    if (!submenu) return;
+
+                    if (open) {
+                        group.classList.add('open');
+                        submenu.setAttribute('aria-hidden', 'false');
+                        if (caret) caret.classList.add('open');
+
+                        // 設定為當前 scrollHeight 以觸發 max-height 過渡
+                        submenu.style.maxHeight = submenu.scrollHeight + 'px';
+                        submenu.style.opacity = '1';
+                        submenu.style.transform = 'translateY(0)';
+
+                        // 過渡結束後移除 max-height 限制，允許內容高度自適應
+                        const onEnd = function (e) {
+                            if (e.propertyName === 'max-height') {
+                                submenu.style.maxHeight = 'none';
+                                submenu.removeEventListener('transitionend', onEnd);
+                            }
+                        };
+                        submenu.addEventListener('transitionend', onEnd);
+                    } else {
+                        // 若先前已設為 none，需要先設為實際高度以便做過渡
+                        if (getComputedStyle(submenu).maxHeight === 'none') {
+                            submenu.style.maxHeight = submenu.scrollHeight + 'px';
+                        }
+                        // force reflow
+                        submenu.getBoundingClientRect();
+
+                        group.classList.remove('open');
+                        submenu.setAttribute('aria-hidden', 'true');
+                        if (caret) caret.classList.remove('open');
+
+                        // 觸發折疊過渡
+                        submenu.style.maxHeight = '0px';
+                        submenu.style.opacity = '0';
+                        submenu.style.transform = 'translateY(-6px)';
+                    }
+                }
+
+                document.querySelectorAll('.submenu-header .caret').forEach(function (caret) {
+                    caret.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const group = this.closest('.submenu-group');
+                        if (!group) return;
+                        const willOpen = !group.classList.contains('open');
+                        setSubmenuOpen(group, willOpen);
+                    });
+                    // 支援鍵盤啟動（Enter / Space）
+                    caret.addEventListener('keydown', function (e) {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            this.click();
+                        }
+                    });
+                });
+
+                // 如果 URL 有 hash（例如 #genshin），自動展開包含該錨點的子選單
+                const hash = (location.hash || '').replace('#', '');
+                if (hash) {
+                    const target = document.querySelector('.side-nav .submenu a[href$="#' + hash + '"]');
+                    if (target) {
+                        const group = target.closest('.submenu-group');
+                        if (group) {
+                            // 使用精確展開函式，確保動畫與 inline max-height 設定正確
+                            setSubmenuOpen(group, true);
+                        }
+                    }
+                }
+            });
+        </script>
 </body>
 
 </html>
