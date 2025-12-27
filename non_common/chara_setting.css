@@ -81,10 +81,16 @@ body.dark-mode .collapse-content {
     color: #d3d7de;
 }
 
+.warning {
+    color: red; 
+    font-size: 24px; 
+    font-weight: bold;
+}
 
 /*氣泡彈窗*/
-.content-box {
+.collapse-content-box {
     position: relative;
+    text-indent: 2rem;
 }
 
 .popup {
@@ -181,9 +187,7 @@ body.dark-mode .collapse-content {
 }
 
 /*縮排*/
-.content-box {
-    text-indent: 2em;
-}
+
 
 .content-box p {
     margin: 0.4em 0;
@@ -226,6 +230,10 @@ summary::after {
 
 details[open] summary::after {
     content: "▲";
+}
+
+.collapse-box.others{
+    display: none;
 }
 
 .collapse-box.others .content-box {
@@ -483,4 +491,13 @@ table tr:hover {
     .charadata_table img {
         max-width: 60%;
     }
+}
+
+h3{
+    font-size: 1.3rem;
+}
+
+h3:not(.collapse-header h3){
+    border-left: 5px solid;
+    padding-left: 15px;
 }
