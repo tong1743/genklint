@@ -45,11 +45,6 @@ body.dark-mode a{
     color: #84B1ED;
 }
 
- body.dark-mode h1,
- body.dark-mode h2,
- body.dark-mode h3 {
-     color: #7ecfff;
- }
 
  body.dark-mode .main-content {
      background: #181c22;
@@ -222,18 +217,29 @@ body.dark-mode a{
      border-radius: 5px;
  }
 
- /*晚間模式*/
+/* 暗色/標題變數 */
+:root {
+    --heading-h2: #2e6b97; /* 主標 - 中藍 */
+    --heading-h3: #2c3e50; /* 次標 - 深藍 */
+    --heading-h4: #17a2b8; /* 小標 - 青色強調 */
+    --heading-accent: #3498db; /* 裝飾用邊框顏色 */
+}
 
- body.dark-mode {
-     background: #181c22;
-     color: #d3d7de;
- }
+/* 晚間模式：覆寫變數以保持色調但提高對比 */
+body.dark-mode {
+    --heading-h2: #2e6b97;
+    --heading-h3: #6fc6e8;
+    --heading-h4: #17a2b8;
+    --heading-accent: #7ecfff;
 
- body.dark-mode h1,
- body.dark-mode h2,
- body.dark-mode h3 {
-     color: #7ecfff;
- }
+    background: #181c22;
+    color: #d3d7de;
+}
+
+/* 全域標題顏色（使用變數，確保一致性） */
+h2 { color: var(--heading-h2); }
+h3 { color: var(--heading-h3); }
+h4 { color: var(--heading-h4); }
 
  body.dark-mode .main-content {
      background: #181c22;
@@ -272,6 +278,10 @@ body.dark-mode a{
      color: #84B1ED;
  }
 
+ h4 {
+    font-size: 1.1rem;
+ }
+
  li {
      margin-left: 1em;
  }
@@ -292,7 +302,7 @@ body.dark-mode a{
      background-position: center;
      width: 100%;
      height: 400px;
-     aspect-ratio: 16/10;
+     aspect-ratio: 16 / 10;
      display: flex;
      align-items: center;
      justify-content: center;
@@ -332,6 +342,10 @@ body.dark-mode a{
  }
 
  @media screen and (max-width: 768px) {
+    .banner{
+        height: 200px;
+    }
+
      .banner h1 {
          font-size: 2em;
      }
