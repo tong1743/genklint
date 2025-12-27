@@ -28,14 +28,16 @@
 
         /* 使用 max-height + opacity 做平滑展開動畫；避免使用 display:none/block 因為無法過渡 */
         .side-nav .submenu {
-            display: block; /* 保留在文件流中，使用 max-height 控制可見性 */
+            display: block;
+            /* 保留在文件流中，使用 max-height 控制可見性 */
             padding-left: 0.75rem;
             margin-top: 4px;
             overflow: hidden;
-            max-height: 0; /* 折疊狀態 */
+            max-height: 0;
+            /* 折疊狀態 */
             opacity: 0;
             transform: translateY(-6px);
-            transition: max-height 1560ms , opacity 200ms ease, transform 200ms ease;
+            transition: max-height 1560ms, opacity 200ms ease, transform 200ms ease;
         }
 
         .side-nav .submenu a {
@@ -46,7 +48,7 @@
             text-decoration: none;
         }
 
-        .side-nav .submenu-group.open > .submenu {
+        .side-nav .submenu-group.open>.submenu {
             /* 展開狀態：給足夠的 max-height 以容納內部連結（若項目數很多，可調大） */
             max-height: 600px;
             opacity: 1;
@@ -76,10 +78,10 @@
             transform: rotate(-90deg);
             transition: transform .1s linear;
         }
+
         .side-nav .caret.open .caret-arrow {
             transform: rotate(90deg);
         }
-
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>角色圖片設定</title>
@@ -113,7 +115,7 @@
 
     <!-- 主要內容 -->
     <div class="main-content">
-        <h2>【預警】</h2>
+        <h2>預警</h2>
         <p>本網頁的圖片如無標註，皆為出自Capcom的官方資料。<br>娃娃圖片都只是佔位符不用太在意。<br>家紋像素繪師：米卡</p>
         <div class="container">
 
@@ -121,16 +123,8 @@
                 <section class="character-section" data-character="genshin">
                     <h3>亞雙義玄真</h3>
 
-                    <div class="outfit-controls">
-                        <div class="outfit-nav">
-                            <button class="outfit-prev" onclick="changeOutfit('genshin', -1)">
-                                <div class="arrow-icon"></div>
-                            </button>
-                            <div class="outfit-indicator" id="outfit-indicator-genshin">日常服</div>
-                            <button class="outfit-next" onclick="changeOutfit('genshin', 1)">
-                                <div class="arrow-icon right"></div>
-                            </button>
-                        </div>
+                    <div class="outfit-controls" data-character="genshin">
+                        <div class="outfit-buttons"></div>
                     </div>
 
                     <div class="character-description">
@@ -141,6 +135,8 @@
                             <li>表情：平常都是嚴肅樣，即使笑也是嘴角上移2px</li>
                             <li>左手無名指戴著戒指，髮帶即使沒有風也不會垂下</li>
                     </div>
+
+
 
                     <div class="character-images" id="genshin-images">
                         <!-- 日常服 (預設顯示) -->
@@ -194,7 +190,8 @@
 
                         <figure class="image-item hidden" data-outfit="paro" data-slide="8">
                             <img src="webp/snake.webp" data-webp-src="webp/snake.webp"
-                                data-original-src="picture/snake.jpg" alt="蛇" data-caption="小蛇 繪師：Gallus" loading="lazy">
+                                data-original-src="picture/snake.jpg" alt="蛇" data-caption="小蛇 繪師：Gallus"
+                                loading="lazy">
                             <figcaption>小蛇<br>繪師：Gallus</figcaption>
                         </figure>
 
@@ -246,16 +243,8 @@
                 <section class="character-section" data-character="klint">
                     <h3>克里姆特·班吉克斯</h3>
 
-                    <div class="outfit-controls">
-                        <div class="outfit-nav">
-                            <button class="outfit-prev" onclick="changeOutfit('klint', -1)">
-                                <div class="arrow-icon"></div>
-                            </button>
-                            <div class="outfit-indicator" id="outfit-indicator-klint">日常服</div>
-                            <button class="outfit-next" onclick="changeOutfit('klint', 1)">
-                                <div class="arrow-icon right"></div>
-                            </button>
-                        </div>
+                    <div class="outfit-controls" data-character="klint">
+                        <div class="outfit-buttons"></div>
                     </div>
 
                     <div class="character-description">
@@ -266,6 +255,18 @@
                             <li>表情：平常比較認真，跟朋友相處時會笑得比較多</li>
                             <li>左胸口掛著檢察官徽章，手戴著手套</li>
                         </ul>
+                    </div>
+
+                    <div class="outfit-description-templates" hidden>
+                        <div class="outfit-description" data-outfit="professor">
+                            <h4>角色特徵</h4>
+                            <ul>
+                                <li>設定是克里姆特腦裏被具象化的自我審判</li>
+                                <li>造型是克里姆特加上黑斗篷</li>
+                                <li>外表比克里姆特冷淡，像是被刪去了所有感情</li>
+                                <li>設定還在整理中先看<a href="https://www.plurk.com/p/3i4iecbzwb">這裏</a></li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="character-images" id="klint-images">
@@ -339,29 +340,29 @@
                                 loading="lazy">
                             <figcaption>好想看他們穿和服</figcaption>
                         </figure>
-
+                        <!--教授-->
+                        <figure class="image-item hidden" data-outfit="professor" data-slide="25">
+                            <img src="webp/professor_k.webp" data-webp-src="webp/siu_nicola_professor.webp"
+                                data-original-src="picture/professor_k.png" alt="教授克" data-caption="水仙 繪師：小雪"
+                                loading="lazy">
+                            <figcaption>水仙<br>繪師：小雪</figcaption>
+                        </figure>
                         <!-- 其他 -->
-                        <figure class="image-item hidden spoiler_image" data-outfit="other" data-slide="25">
+                        <figure class="image-item hidden spoiler_image" data-outfit="other" data-slide="26">
                             <img src="webp/Genshin_Impact.webp" data-webp-src="webp/Genshin_Impact.webp"
                                 data-original-src="picture/Genshin_Impact.png" alt="原神衝擊" data-caption="玄克里決鬥前"
                                 loading="lazy">
                             <figcaption>劇透注意</figcaption>
                         </figure>
 
-                        <figure class="image-item hidden" data-outfit="other" data-slide="26">
+                        <figure class="image-item hidden" data-outfit="other" data-slide="27">
                             <img src="webp/klintbarok.webp" data-webp-src="webp/klintbarok.webp"
                                 data-original-src="picture/klintbarok.png" alt="克里姆特和巴洛克" data-caption="旁邊的是格雷格森"
                                 loading="lazy">
                             <figcaption>克里姆特和巴洛克</figcaption>
                         </figure>
 
-                        <figure class="image-item hidden spoiler_image" data-outfit="other" data-slide="27">
-                            <img src="webp/professor_k.webp" data-webp-src="webp/siu_nicola_professor.webp"
-                                data-original-src="picture/professor_k.png" alt="教授克"
-                                data-caption="水仙 繪師：小雪" loading="lazy">
-                            <div class="outfit-tag">黑色斗篷男和本人</div>
-                            <figcaption>水仙（劇透注意）<br>繪師：Siu Nicola</figcaption>
-                        </figure>
+
                     </div>
                 </section>
 

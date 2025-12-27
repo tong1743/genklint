@@ -6,27 +6,38 @@ body.dark-mode .character-section {
 }
 
 body.dark-mode .character-section h3 {
-    color: #7ecfff;
-    border-left-color: #7ecfff;
+    color: var(--heading-h3);
+    border-left-color: var(--heading-accent);
 }
 
 body.dark-mode .character-description {
     background: #181c22;
-    border-left-color: #7ecfff;
+    border-left-color: var(--heading-h4);
 }
 
 body.dark-mode .character-description h4 {
-    color: #7ecfff;
-}
+    color: var(--heading-h4);
+} 
 
 body.dark-mode .character-description p {
     color: #d3d7de;
 }
 
-body.dark-mode .outfit-indicator {
-    background: #232834;
-    color: #7ecfff;
+body.dark-mode .outfit-btn {
+    background: #2e6b97;
+    border-color: #2e6b97;
+    color: #d9edff;
+}
+
+body.dark-mode .outfit-btn:hover {
+    background: #3d82b5;
+    border-color: #3d82b5;
+}
+
+body.dark-mode .outfit-btn.active {
+    background: #7ecfff;
     border-color: #7ecfff;
+    color: #0f1b27;
 }
 
 body.dark-mode .image-item figcaption {
@@ -47,21 +58,6 @@ body.dark-mode .modal-content {
 
 body.dark-mode .modal-caption {
     color: #7ecfff;
-}
-
-body.dark-mode .outfit-nav button {
-    background: #2e6b97;
-    color: #fff;
-}
-
-body.dark-mode .outfit-nav button:disabled {
-    background: #3a4a5a;
-    color: #888;
-}
-
-body.dark-mode .outfit-nav button:hover:not(:disabled) {
-    background: #7ecfff;
-    color: #232834;
 }
 
 /*劇透圖片介紹*/
@@ -103,10 +99,10 @@ body.dark-mode .outfit-nav button:hover:not(:disabled) {
 }
 
 .character-section h3 {
-    color: #2c3e50;
+    color: var(--heading-h3);
     font-size: 1.6em;
     margin-bottom: 20px;
-    border-left: 5px solid #3498db;
+    border-left: 5px solid var(--heading-accent);
     padding-left: 15px;
     display: flex;
     align-items: center;
@@ -130,70 +126,70 @@ body.dark-mode .outfit-nav button:hover:not(:disabled) {
 /* 服裝切換控制區域 */
 .outfit-controls {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
     margin-bottom: 20px;
     padding: 10px 0;
     border-bottom: 1px solid #e9ecef;
 }
 
-.outfit-nav {
+/* Mobile: 橫向滑動（推薦） */
+@media screen and (max-width: 768px) {
+  .outfit-buttons {
     display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px; /* 留出滑動空間 */
+    scroll-snap-type: x mandatory;
+  }
+  .outfit-btn {
+    flex: 0 0 auto;
+    min-width: 96px;
+    scroll-snap-align: start;
+  }
+  /*（可選）隱藏捲軸視覺（仍能滑動）*/
+  .outfit-buttons::-webkit-scrollbar { height: 6px; }
+  .outfit-buttons::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 6px; }
+}
+.outfit-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     align-items: center;
     gap: 10px;
 }
 
-.outfit-nav button {
-    background: #3498db;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+.outfit-btn {
+    background: #e8f3fb;
+    white-space: nowrap;
+    flex: 0 0 auto;
+    color: #1d71b8;
+    border: 1px solid #c8e2f5;
+    border-radius: 18px;
+    padding: 8px 14px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.outfit-nav button:hover:not(:disabled) {
-    background: #2980b9;
-}
-
-.outfit-nav button:disabled {
-    background: #bdc3c7;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-.outfit-nav button .arrow-icon {
-    background: white;
-    width: 20px;
-    height: 20px;
-    mask: url(../icon/left-arrow.svg) no-repeat center center;
-    -webkit-mask: url(../icon/left-arrow.svg) no-repeat center center;
-    mask-size: contain;
-    -webkit-mask-size: contain;
-    position: relative;
-    right: 2px;
-}
-
-.outfit-nav button .arrow-icon.right {
-    transform: scaleX(-1);
-    left: 2px;
-}
-
-
-.outfit-indicator {
-    background: #f8f9fa;
-    padding: 8px 16px;
-    border-radius: 20px;
     font-weight: 600;
-    color: #3498db;
-    font-size: 0.95em;
-    border: 2px solid #e3f2fd;
+    transition: all 0.2s ease;
+}
+
+
+
+.outfit-btn:hover {
+    background: #d3e9fb;
+    border-color: #9fc9ec;
+}
+
+.outfit-btn.active {
+    background: #3498db;
+    border-color: #3498db;
+    color: #fff;
+}
+
+.outfit-btn:focus-visible {
+    outline: 2px solid #3498db;
+    outline-offset: 2px;
 }
 
 .character-description {
@@ -205,7 +201,7 @@ body.dark-mode .outfit-nav button:hover:not(:disabled) {
 }
 
 .character-description h4 {
-    color: #17a2b8;
+    color: var(--heading-h4);
     margin-bottom: 8px;
     font-size: 1.1em;
 }
@@ -220,7 +216,7 @@ body.dark-mode .outfit-nav button:hover:not(:disabled) {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: flex-start;
     padding: 10px 0;
     position: relative;
@@ -274,12 +270,14 @@ body.dark-mode .outfit-nav button:hover:not(:disabled) {
 
 .image-item img:hover,
 .image-item .image-placeholder:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
     border-color: #3498db;
 }
 
 .image-item figcaption {
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+    width: 100%;
     text-align: center;
     font-size: 0.85em;
     color: white;
@@ -287,17 +285,16 @@ body.dark-mode .outfit-nav button:hover:not(:disabled) {
         #666 -0.5px -0.5px 0,
         #666 0.5px -0.5px 0,
         #666 -0.5px 0.5px 0;
-    top: 80%;
     padding: 0 5px;
     font-weight: 500;
     line-height: 1.3;
     /* 固定高度的標題區域 */
     height: 2.5em;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
-    position: relative;
     pointer-events: none;
+    z-index: 2;
 }
 
 /* 隱藏時的圖片說明文字也不顯示 */
@@ -659,7 +656,7 @@ body.dark-mode .outfit-nav button:hover:not(:disabled) {
 
     .image-item {
         width: 160px;
-        height: 200px;
+        height: 140px;
     }
 
     .image-item figcaption {
@@ -667,10 +664,9 @@ body.dark-mode .outfit-nav button:hover:not(:disabled) {
         height: 2.2em;
     }
 
-    .outfit-nav button {
-        width: 35px;
-        height: 35px;
-        font-size: 16px;
+    .outfit-btn {
+        padding: 7px 12px;
+        font-size: 0.95em;
     }
 
     .close {
@@ -743,13 +739,7 @@ body.dark-mode .outfit-nav button:hover:not(:disabled) {
         align-items: stretch;
     }
 
-    .outfit-nav {
-        justify-content: center;
-    }
 
-    .outfit-indicator {
-        text-align: center;
-    }
 
     .modal-prev,
     .modal-next {

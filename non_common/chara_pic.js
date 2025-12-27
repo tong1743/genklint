@@ -5,8 +5,8 @@ const outfitConfig = {
         names: ['日常服', 'PARO及換裝', '其他']
     },
     'klint': {
-        outfits: ['daily', 'paro', 'other'],
-        names: ['日常服', 'PARO及換裝', '其他']
+        outfits: ['daily', 'paro', 'professor', 'other'],
+        names: ['日常服', 'PARO及換裝', '教授（水仙）', '其他']
     },
 };
 
@@ -15,6 +15,31 @@ let currentOutfits = {
     'genshin': 0,
     'klint': 0,
 };
+
+const originalDescriptions = {};
+
+// 產生服裝按鈕
+function renderOutfitButtons() {
+    Object.keys(outfitConfig).forEach(characterId => {
+        const section = document.querySelector(`[data-character="${characterId}"]`);
+        if (!section) return;
+
+        const buttonsContainer = section.querySelector('.outfit-buttons');
+        if (!buttonsContainer) return;
+
+        buttonsContainer.innerHTML = '';
+
+        outfitConfig[characterId].names.forEach((name, index) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'outfit-btn';
+            button.textContent = name;
+            button.dataset.outfitIndex = index;
+            button.addEventListener('click', () => changeOutfit(characterId, index));
+            buttonsContainer.appendChild(button);
+        });
+    });
+}
 
 // 模態視窗變數
 let slideIndex = 1;
@@ -27,35 +52,59 @@ let currentOriginalSrc = ''; // 追蹤原始圖片來源
 let downloadTooltipTimeout = null; // 提示計時器
 
 // 服裝切換函數
-function changeOutfit(characterId, direction) {
+function changeOutfit(characterId, targetIndex) {
     const config = outfitConfig[characterId];
-    const currentIndex = currentOutfits[characterId];
-    const newIndex = (currentIndex + direction + config.outfits.length) % config.outfits.length;
+    if (!config) return;
+
+    const totalOutfits = config.outfits.length;
+    const newIndex = Math.max(0, Math.min(totalOutfits - 1, targetIndex));
 
     currentOutfits[characterId] = newIndex;
-
-    // 更新指示器
-    const indicator = document.getElementById(`outfit-indicator-${characterId.replace('character-', '')}`);
-    indicator.textContent = config.names[newIndex];
 
     // 更新按鈕狀態
     updateOutfitButtons(characterId);
 
     // 切換圖片
-    switchImages(characterId, config.outfits[newIndex]);
+    const newOutfit = config.outfits[newIndex];
+    switchImages(characterId, newOutfit);
+
+    // 更新描述
+    updateDescriptionForOutfit(characterId, newOutfit);
 }
 
 // 更新服裝按鈕狀態
 function updateOutfitButtons(characterId) {
-    const config = outfitConfig[characterId];
     const currentIndex = currentOutfits[characterId];
 
-    const prevBtn = document.querySelector(`[data-character="${characterId}"] .outfit-prev`);
-    const nextBtn = document.querySelector(`[data-character="${characterId}"] .outfit-next`);
+    const buttons = document.querySelectorAll(`[data-character="${characterId}"] .outfit-btn`);
+    buttons.forEach((button, index) => {
+        const isActive = index === currentIndex;
+        button.classList.toggle('active', isActive);
+        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+}
 
-    // 所有按鈕都可用（循環切換）
-    prevBtn.disabled = false;
-    nextBtn.disabled = false;
+function cacheOriginalDescriptions() {
+    document.querySelectorAll('.character-section').forEach(section => {
+        const characterId = section.dataset.character;
+        const desc = section.querySelector('.character-description');
+        if (characterId && desc) {
+            originalDescriptions[characterId] = desc.innerHTML;
+        }
+    });
+}
+
+function updateDescriptionForOutfit(characterId, outfitKey) {
+    const section = document.querySelector(`[data-character="${characterId}"]`);
+    const desc = section ? section.querySelector('.character-description') : null;
+    if (!desc) return;
+
+    const template = section.querySelector(`.outfit-description[data-outfit="${outfitKey}"]`);
+    if (template) {
+        desc.innerHTML = template.innerHTML;
+    } else if (originalDescriptions[characterId]) {
+        desc.innerHTML = originalDescriptions[characterId];
+    }
 }
 
 // 切換圖片顯示
@@ -830,9 +879,10 @@ document.getElementById('imageModal').addEventListener('click', function (event)
 // 初始化
 document.addEventListener('DOMContentLoaded', function () {
     // 初始化服裝顯示
+    cacheOriginalDescriptions();
+    renderOutfitButtons();
     Object.keys(outfitConfig).forEach(characterId => {
-        const config = outfitConfig[characterId];
-        switchImages(characterId, config.outfits[0]);
+        changeOutfit(characterId, 0);
     });
 
     // 綁定點擊事件
